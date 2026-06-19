@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://coar0w52ewb50"]
+
+[ext_resource type="Script" uid="uid://ba70dd62hghtg" path="res://scripts/hamsterballcontroller.gd" id="1_nnsk1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7vitk"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vitk"]
+size = Vector3(100, 0.05, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vitk"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7vitk"]
+material = SubResource("StandardMaterial3D_7vitk")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7vitk"]
+
+[node name="Node3D" type="Node3D" unique_id=1780693355]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1008933659]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=254835385]
+mesh = SubResource("PlaneMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=895226393]
+shape = SubResource("BoxShape3D_7vitk")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1162212023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.343752, 0)
+script = ExtResource("1_nnsk1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1353453146]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=672671804]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1390057319]
+transform = Transform3D(1, 0, 0, 0, 0.79566306, 0.6057395, 0, -0.6057395, 0.79566306, 0, 6.6971083, 13.612418)
