@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://c116d2p1ao7j5" path="res://objects/hamsterball.tscn" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://dcn77pdvri6op" path="res://scripts/chase_camera.gd" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://drh0c21i68b65" path="res://ramp1.tscn" id="3_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://bc6kh5thpyt" path="res://objects/cyllinader.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://csel0jqmwqsxq" path="res://objects/speedboost.tscn" id="5_71j4m"]
 [ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="7_i7141"]
 
@@ -93,9 +92,6 @@ script = ExtResource("2_rwgxs")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -2.5862246, 0.024999619, -7.0415745)
 physics_material_override = SubResource("PhysicsMaterial_7vitk")
 
-[node name="cyllinader" parent="." unique_id=1379263012 instance=ExtResource("4_k0juu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.623263, 1.0249977, 0.02623272)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1268748439]
 environment = SubResource("Environment_7vitk")
 
@@ -121,6 +117,7 @@ transform = Transform3D(-2.5262395e-08, 0.012120694, -0.99992657, 3.5672073e-08,
 [node name="RigidBody3D" type="RigidBody3D" parent="ScoringObjects" unique_id=185414146]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3893037, 0)
 script = ExtResource("7_i7141")
+min_velocity = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ScoringObjects/RigidBody3D" unique_id=483285111]
 mesh = SubResource("CylinderMesh_aqfoc")
