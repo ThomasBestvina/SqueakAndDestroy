@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dcn77pdvri6op" path="res://scripts/chase_camera.gd" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://drh0c21i68b65" path="res://ramp1.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://csel0jqmwqsxq" path="res://objects/speedboost.tscn" id="5_71j4m"]
+[ext_resource type="Script" uid="uid://by25bn6pcps5j" path="res://scripts/ui.gd" id="7_4mrxx"]
 [ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="7_i7141"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7vitk"]
@@ -124,3 +125,27 @@ mesh = SubResource("CylinderMesh_aqfoc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScoringObjects/RigidBody3D" unique_id=553006472]
 shape = SubResource("CylinderShape3D_lopsq")
+
+[node name="UI" type="Control" parent="." unique_id=1042580629]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_4mrxx")
+
+[node name="Pause" type="Control" parent="UI" unique_id=155863077]
+process_mode = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Resume" type="Button" parent="UI/Pause" unique_id=378336246]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 570.0
+offset_right = 575.0
+offset_bottom = 601.0
+text = "Resume"
+
+[connection signal="pressed" from="UI/Pause/Resume" to="UI" method="_on_resume_pressed"]
