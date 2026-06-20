@@ -1,10 +1,12 @@
 [gd_scene format=4 uid="uid://coar0w52ewb50"]
 
+[ext_resource type="Script" uid="uid://dbjvbegdf8gt5" path="res://scripts/world.gd" id="1_qfnet"]
 [ext_resource type="PackedScene" uid="uid://c116d2p1ao7j5" path="res://objects/hamsterball.tscn" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://dcn77pdvri6op" path="res://scripts/chase_camera.gd" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://drh0c21i68b65" path="res://ramp1.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://bc6kh5thpyt" path="res://objects/cyllinader.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://csel0jqmwqsxq" path="res://objects/speedboost.tscn" id="5_71j4m"]
+[ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="7_i7141"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7vitk"]
 size = Vector2(100, 100)
@@ -62,7 +64,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nug3g")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_aqfoc"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lopsq"]
+
 [node name="Node3D" type="Node3D" unique_id=1780693355]
+script = ExtResource("1_qfnet")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1008933659]
 collision_layer = 3
@@ -108,3 +115,15 @@ mesh = SubResource("ArrayMesh_t45sr")
 
 [node name="speedboost" parent="." unique_id=1095838425 instance=ExtResource("5_71j4m")]
 transform = Transform3D(-2.5262395e-08, 0.012120694, -0.99992657, 3.5672073e-08, 0.99992657, 0.012120694, 1, -3.5363257e-08, -2.569291e-08, 14.376819, 2.7018738, -0.033186674)
+
+[node name="ScoringObjects" type="Node3D" parent="." unique_id=1681622631]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="ScoringObjects" unique_id=185414146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3893037, 0)
+script = ExtResource("7_i7141")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ScoringObjects/RigidBody3D" unique_id=483285111]
+mesh = SubResource("CylinderMesh_aqfoc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoringObjects/RigidBody3D" unique_id=553006472]
+shape = SubResource("CylinderShape3D_lopsq")

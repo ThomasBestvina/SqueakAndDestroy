@@ -18,7 +18,7 @@ func _ready() -> void:
 	StoatStash.register_input_tracking("jump")
 	$RayCast3D.top_level = true
 	$piv.top_level = true
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 		pitch -= event.relative.y * cam_speed
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$piv.rotation.y = yaw
 	$piv.rotation.x = pitch
 	

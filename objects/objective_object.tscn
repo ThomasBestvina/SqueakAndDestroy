@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bsthxbravso5n"]
+
+[ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="1_3cy8o"]
+
+[node name="ObjectiveObject" type="RigidBody3D" unique_id=1243739690]
+script = ExtResource("1_3cy8o")
