@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://ba70dd62hghtg" path="res://scripts/hamsterballcontroller.gd" id="1_pqu4l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k0juu"]
-friction = 0.75
-rough = true
-bounce = 0.35
+friction = 0.25
+bounce = 0.42
 
 [sub_resource type="Gradient" id="Gradient_pqu4l"]
 interpolation_mode = 1
@@ -47,4 +46,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7671611, 0)
 spring_length = 3.0
 
 [node name="CamPos" type="Node3D" parent="piv/SpringArm3D" unique_id=343262216]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.247, 3.003336)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.247, -3.003)
