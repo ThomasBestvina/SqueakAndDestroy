@@ -11,8 +11,6 @@ var state: Dictionary = {
 	"boost": 0
 }
 
-func _ready() -> void:
-	save_game()
 
 func save_game():
 	StoatStash.save_data(state, "hamsterballawesomesave.dat")

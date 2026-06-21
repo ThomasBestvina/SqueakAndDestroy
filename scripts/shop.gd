@@ -14,7 +14,16 @@ class_name Shop extends Control
 
 enum UpgradeType {SPEED,TIME,JUMP,WEIGHT,MULTIPLIER,GRAPPLE,BOOST}
 
-func cost_calculator(type: UpgradeType):
+func init():
+	%Speed/RichTextLabel.text = str(cost_calculator(UpgradeType.SPEED))
+	%Time/RichTextLabel.text = str(cost_calculator(UpgradeType.TIME))
+	%Jump/RichTextLabel.text = str(cost_calculator(UpgradeType.JUMP))
+	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
+	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
+	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
+	%RocketBoost/RichTextLabel.text = str(cost_calculator(UpgradeType.BOOST))
+
+func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
 			return pow(7, GlobalState.state["speed"] + 1)
@@ -33,25 +42,76 @@ func cost_calculator(type: UpgradeType):
 		_:
 			return 0
 
+func upgrade_number(type: UpgradeType): # no return promise, as we may return a float or int
+	match type:
+		UpgradeType.SPEED:
+			return 1
+		UpgradeType.TIME:
+			return 10
+		UpgradeType.JUMP:
+			return 2
+		UpgradeType.WEIGHT:
+			return 0.2
+		UpgradeType.MULTIPLIER:
+			return 1
+		UpgradeType.GRAPPLE:
+			return 1
+		UpgradeType.BOOST:
+			return 1
+		_:
+			return 0
+
+func type_to_string(type: UpgradeType) -> String:
+	match type:
+		UpgradeType.SPEED:
+			return "speed"
+		UpgradeType.TIME:
+			return "time"
+		UpgradeType.JUMP:
+			return "jump"
+		UpgradeType.WEIGHT:
+			return "weight"
+		UpgradeType.MULTIPLIER:
+			return "multiplier"
+		UpgradeType.GRAPPLE:
+			return "grapple"
+		UpgradeType.BOOST:
+			return "boost"
+		_:
+			return ""
+	
+
 func _on_speed_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.SPEED, %Speed/RichTextLabel)
 
 
 func _on_time_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.TIME, %Time/RichTextLabel)
 
 
 func _on_weight_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.WEIGHT, %Jump/RichTextLabel)
 
 
 func _on_multiplier_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.JUMP, %Weight/RichTextLabel)
 
 
 func _on_grapple_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.GRAPPLE, %Multiplier/RichTextLabel)
 
 
 func _on_rocket_up_pressed() -> void:
-	pass # Replace with function body.
+	buy(UpgradeType.BOOST, %RocketBoost/RichTextLabel)
+
+func buy(thing: UpgradeType, textEdit: RichTextLabel):
+	var cost: int = cost_calculator(thing)
+	if(GlobalState.state["currency"] >= cost):
+		GlobalState.state["currency"] -= cost
+		GlobalState.state[type_to_string(thing)] += upgrade_number(thing)
+		textEdit.text = str(cost_calculator(thing))
+		GlobalState.save_game()
+
+
+func _on_button_pressed() -> void:
+	get_tree().reload_current_scene()

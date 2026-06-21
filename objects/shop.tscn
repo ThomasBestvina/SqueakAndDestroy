@@ -17,124 +17,139 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ul6j")
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=747385778]
-custom_minimum_size = Vector2(500, 300)
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1724639772]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -257.5
+offset_top = -171.5
+offset_right = 257.5
+offset_bottom = 171.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=747385778]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
 columns = 3
 
-[node name="Speed" type="VBoxContainer" parent="GridContainer" unique_id=389291012]
+[node name="Speed" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=389291012]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/Speed" unique_id=1998791480]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/Speed" unique_id=1998791480]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="SpeedUp" type="Button" parent="GridContainer/Speed" unique_id=1846735437]
+[node name="SpeedUp" type="Button" parent="VBoxContainer/GridContainer/Speed" unique_id=1846735437]
 layout_mode = 2
 text = "Upgrade Speed"
 
-[node name="Time" type="VBoxContainer" parent="GridContainer" unique_id=1198413831]
+[node name="Time" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1198413831]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/Time" unique_id=529266092]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/Time" unique_id=529266092]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="TimeUp" type="Button" parent="GridContainer/Time" unique_id=413477152]
+[node name="TimeUp" type="Button" parent="VBoxContainer/GridContainer/Time" unique_id=413477152]
 layout_mode = 2
 text = "Upgrade Time"
 
-[node name="Jump" type="VBoxContainer" parent="GridContainer" unique_id=1870005659]
+[node name="Jump" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1870005659]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/Jump" unique_id=206496430]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/Jump" unique_id=206496430]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="JumpUp" type="Button" parent="GridContainer/Jump" unique_id=1504625117]
+[node name="JumpUp" type="Button" parent="VBoxContainer/GridContainer/Jump" unique_id=1504625117]
 layout_mode = 2
 text = "Unlock Jump"
 
-[node name="Weight" type="VBoxContainer" parent="GridContainer" unique_id=2145435628]
+[node name="Weight" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=2145435628]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/Weight" unique_id=1549781165]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/Weight" unique_id=1549781165]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="WeightUp" type="Button" parent="GridContainer/Weight" unique_id=1972279115]
+[node name="WeightUp" type="Button" parent="VBoxContainer/GridContainer/Weight" unique_id=1972279115]
 layout_mode = 2
 text = "Increase Weight"
 
-[node name="Multiplier" type="VBoxContainer" parent="GridContainer" unique_id=1237161505]
+[node name="Multiplier" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1237161505]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/Multiplier" unique_id=1874922025]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/Multiplier" unique_id=1874922025]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="MultiplierUp" type="Button" parent="GridContainer/Multiplier" unique_id=234967569]
+[node name="MultiplierUp" type="Button" parent="VBoxContainer/GridContainer/Multiplier" unique_id=234967569]
 layout_mode = 2
 text = "Increase Multiplier"
 
-[node name="GrapplingHook" type="VBoxContainer" parent="GridContainer" unique_id=909777704]
+[node name="GrapplingHook" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=909777704]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/GrapplingHook" unique_id=1734069112]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/GrapplingHook" unique_id=1734069112]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="GrappleUp" type="Button" parent="GridContainer/GrapplingHook" unique_id=744640995]
+[node name="GrappleUp" type="Button" parent="VBoxContainer/GridContainer/GrapplingHook" unique_id=744640995]
 layout_mode = 2
 text = "Unlock Grappling Hook"
 
-[node name="RocketBoost" type="VBoxContainer" parent="GridContainer" unique_id=1350147716]
+[node name="RocketBoost" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1350147716]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer/RocketBoost" unique_id=1664802954]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/RocketBoost" unique_id=1664802954]
 custom_minimum_size = Vector2(0, 23.245)
 layout_mode = 2
 text = "500"
 horizontal_alignment = 1
 
-[node name="RocketUp" type="Button" parent="GridContainer/RocketBoost" unique_id=1111862376]
+[node name="RocketUp" type="Button" parent="VBoxContainer/GridContainer/RocketBoost" unique_id=1111862376]
 layout_mode = 2
 text = "Unlock Rocket Boost
 "
 
-[connection signal="pressed" from="GridContainer/Speed/SpeedUp" to="." method="_on_speed_up_pressed"]
-[connection signal="pressed" from="GridContainer/Time/TimeUp" to="." method="_on_time_up_pressed"]
-[connection signal="pressed" from="GridContainer/Weight/WeightUp" to="." method="_on_weight_up_pressed"]
-[connection signal="pressed" from="GridContainer/Multiplier/MultiplierUp" to="." method="_on_multiplier_up_pressed"]
-[connection signal="pressed" from="GridContainer/GrapplingHook/GrappleUp" to="." method="_on_grapple_up_pressed"]
-[connection signal="pressed" from="GridContainer/RocketBoost/RocketUp" to="." method="_on_rocket_up_pressed"]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=230734726]
+layout_mode = 2
+text = "Done"
+
+[connection signal="pressed" from="VBoxContainer/GridContainer/Speed/SpeedUp" to="." method="_on_speed_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Time/TimeUp" to="." method="_on_time_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Weight/WeightUp" to="." method="_on_weight_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Multiplier/MultiplierUp" to="." method="_on_multiplier_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/GrapplingHook/GrappleUp" to="." method="_on_grapple_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/RocketBoost/RocketUp" to="." method="_on_rocket_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
