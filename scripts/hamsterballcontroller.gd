@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var speed: float = 3
+@export var speed: float = 1
 @export var jump: float = 5
 @export var cam_speed: float = 0.003
 @export var air_friction: float = 1.01

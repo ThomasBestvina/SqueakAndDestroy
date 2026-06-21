@@ -2,7 +2,13 @@ extends Node
 
 var state: Dictionary = {
 	"currency": 0,
-	"timer": 30
+	"timer": 30,
+	"speed": 1,
+	"jump": 0,
+	"weight": 0.1,
+	"multiplier": 1,
+	"hook": 0,
+	"boost": 0
 }
 
 func _ready() -> void:

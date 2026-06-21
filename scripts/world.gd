@@ -21,6 +21,7 @@ func add_points(points: int):
 
 
 func _physics_process(delta: float) -> void:
+	# transport procedure
 	if transporting_back:
 		hamster_ball.transform = hamster_ball.transform.interpolate_with(shop_position_node.transform, delta * transport_speed)
 		if(hamster_ball.transform.is_equal_approx(shop_position_node.transform)):
