@@ -18,6 +18,7 @@ func _ready() -> void:
 		if(i is ObjectiveObject):
 			StoatStash.safe_signal_connect(i.points_scored, add_points)
 	$GameTimer.start(GlobalState.state["timer"])
+	$Hamsterball.init()
 
 
 func add_points(points: int):
