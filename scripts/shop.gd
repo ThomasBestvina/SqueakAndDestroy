@@ -1,4 +1,4 @@
-extends Control
+class_name Shop extends Control
 
 ## reference
 #var state: Dictionary = {
@@ -12,6 +12,26 @@ extends Control
 #	"boost": 0
 #}
 
+enum UpgradeType {SPEED,TIME,JUMP,WEIGHT,MULTIPLIER,GRAPPLE,BOOST}
+
+func cost_calculator(type: UpgradeType):
+	match type:
+		UpgradeType.SPEED:
+			return pow(7, GlobalState.state["speed"] + 1)
+		UpgradeType.TIME:
+			return pow(GlobalState.state["timer"] + 1, 2) * 5
+		UpgradeType.JUMP:
+			return pow(GlobalState.state["jump"] + 1, 2) * 10
+		UpgradeType.WEIGHT:
+			return pow(GlobalState.state["weight"] * 10 + 1, 2) * 8
+		UpgradeType.MULTIPLIER:
+			return pow(10, GlobalState.state["multiplier"])
+		UpgradeType.GRAPPLE:
+			return pow(9, GlobalState.state["hook"] + 1)
+		UpgradeType.BOOST:
+			return pow(7, GlobalState.state["boost"] + 1)
+		_:
+			return 0
 
 func _on_speed_up_pressed() -> void:
 	pass # Replace with function body.
