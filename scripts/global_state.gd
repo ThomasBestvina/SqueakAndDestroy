@@ -5,7 +5,7 @@ var state: Dictionary = {
 	"timer": 30,
 	"speed": 1,
 	"jump": 0,
-	"weight": 0.1,
+	"weight": 0.0,
 	"multiplier": 1,
 	"hook": 0,
 	"boost": 0

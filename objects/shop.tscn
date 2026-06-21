@@ -148,6 +148,7 @@ text = "Done"
 
 [connection signal="pressed" from="VBoxContainer/GridContainer/Speed/SpeedUp" to="." method="_on_speed_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/Time/TimeUp" to="." method="_on_time_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/Jump/JumpUp" to="." method="_on_jump_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/Weight/WeightUp" to="." method="_on_weight_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/Multiplier/MultiplierUp" to="." method="_on_multiplier_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/GrapplingHook/GrappleUp" to="." method="_on_grapple_up_pressed"]

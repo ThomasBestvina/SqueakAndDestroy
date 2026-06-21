@@ -18,6 +18,9 @@ func init():
 	%Speed/RichTextLabel.text = str(cost_calculator(UpgradeType.SPEED))
 	%Time/RichTextLabel.text = str(cost_calculator(UpgradeType.TIME))
 	%Jump/RichTextLabel.text = str(cost_calculator(UpgradeType.JUMP))
+	
+	%Jump/JumpUp.text = "Upgrade Jump" if GlobalState.state["jump"] > 0 else "Unlock Jump"
+	
 	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
 	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
 	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
@@ -74,7 +77,7 @@ func type_to_string(type: UpgradeType) -> String:
 		UpgradeType.MULTIPLIER:
 			return "multiplier"
 		UpgradeType.GRAPPLE:
-			return "grapple"
+			return "hook"
 		UpgradeType.BOOST:
 			return "boost"
 		_:
@@ -90,19 +93,23 @@ func _on_time_up_pressed() -> void:
 
 
 func _on_weight_up_pressed() -> void:
-	buy(UpgradeType.WEIGHT, %Jump/RichTextLabel)
+	buy(UpgradeType.WEIGHT, %Weight/RichTextLabel)
 
 
 func _on_multiplier_up_pressed() -> void:
-	buy(UpgradeType.JUMP, %Weight/RichTextLabel)
+	buy(UpgradeType.MULTIPLIER, %Multiplier/RichTextLabel)
 
 
 func _on_grapple_up_pressed() -> void:
-	buy(UpgradeType.GRAPPLE, %Multiplier/RichTextLabel)
+	buy(UpgradeType.GRAPPLE, %GrapplingHook/RichTextLabel)
 
 
 func _on_rocket_up_pressed() -> void:
 	buy(UpgradeType.BOOST, %RocketBoost/RichTextLabel)
+
+
+func _on_jump_up_pressed() -> void:
+	buy(UpgradeType.JUMP, %Jump/RichTextLabel)
 
 func buy(thing: UpgradeType, textEdit: RichTextLabel):
 	var cost: int = cost_calculator(thing)

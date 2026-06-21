@@ -10,7 +10,6 @@ var transporting_back = false
 @export var transport_speed: float = 1.0
 func _ready() -> void:
 	GlobalState.load_game() # We want to do this every time the scene loads because it is assumed all progress gets saved as soon as there is a change, thus what is on the disk is correct
-	print(OS.get_data_dir())
 	$UI/Shop.hide()
 	$UI/Shop.init()
 	$UI/Gui.show()
@@ -22,7 +21,7 @@ func _ready() -> void:
 
 
 func add_points(points: int):
-	GlobalState.state["currency"] += points
+	GlobalState.state["currency"] += points * GlobalState.state["multiplier"]
 
 
 func _physics_process(delta: float) -> void:

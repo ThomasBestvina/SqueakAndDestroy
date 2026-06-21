@@ -1,7 +1,5 @@
 extends RigidBody3D
 
-@export var speed: float = 1
-@export var jump: float = 5
 @export var cam_speed: float = 0.003
 @export var air_friction: float = 1.01
 @export var cam: Node3D
@@ -16,9 +14,9 @@ var pitch: float = 0.0
 
 func _ready() -> void:
 	StoatStash.register_input_tracking("jump")
+	mass = 0.3 + GlobalState.state["weight"]
 	$RayCast3D.top_level = true
 	$piv.top_level = true
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -35,10 +33,10 @@ func _process(_delta: float) -> void:
 
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 
-	apply_torque((right * input.x + forward * input.y) * speed)
+	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"])
 
 	$RayCast3D.global_position = global_position - Vector3(0, 0.43, 0)
 	$piv.global_position = global_position + Vector3(0, 2.0, 0)
 
 	if $RayCast3D.is_colliding() && StoatStash.consume_buffered_input("jump", 0.07):
-		apply_impulse(Vector3.UP * jump)
+		apply_impulse(Vector3.UP * GlobalState.state["jump"])
