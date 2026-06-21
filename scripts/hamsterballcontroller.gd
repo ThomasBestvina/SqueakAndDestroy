@@ -38,7 +38,7 @@ func _input(event: InputEvent) -> void:
 		pitch -= event.relative.y * cam_speed
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	$piv.rotation.y = yaw
 	$piv.rotation.x = pitch
 	
@@ -63,7 +63,7 @@ func _process(_delta: float) -> void:
 		jump_hold_time = 0.0
 
 	if is_jumping and Input.is_action_pressed("jump") and jump_hold_time < MAX_HOLD_TIME:
-		jump_hold_time += _delta
+		jump_hold_time += delta
 		var t = jump_hold_time / MAX_HOLD_TIME
 		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 1.5 * (1.0 - sqrt(t)))
 

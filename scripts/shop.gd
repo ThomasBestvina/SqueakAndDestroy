@@ -29,19 +29,19 @@ func init():
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return pow(7, GlobalState.state["speed"] + 1)
+			return int(pow(7, GlobalState.state["speed"] + 1))
 		UpgradeType.TIME:
-			return pow(GlobalState.state["timer"] + 1, 2) * 5
+			return int(pow(GlobalState.state["timer"]-29, 1.2))
 		UpgradeType.JUMP:
-			return pow(GlobalState.state["jump"] + 1, 2) * 10
+			return int(pow(GlobalState.state["jump"] + 1, 2) * 10)
 		UpgradeType.WEIGHT:
-			return pow(GlobalState.state["weight"] * 10 + 1, 2) * 8
+			return int(pow(GlobalState.state["weight"] * 10 + 1, 2) * 8)
 		UpgradeType.MULTIPLIER:
-			return pow(10, GlobalState.state["multiplier"])
+			return int(pow(10, GlobalState.state["multiplier"]))
 		UpgradeType.GRAPPLE:
-			return pow(9, GlobalState.state["hook"] + 1)
+			return int(pow(9, GlobalState.state["hook"] + 1))
 		UpgradeType.BOOST:
-			return pow(7, GlobalState.state["boost"] + 1)
+			return int(pow(7, GlobalState.state["boost"] + 1))
 		_:
 			return 0
 
