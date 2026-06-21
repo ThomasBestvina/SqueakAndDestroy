@@ -72,8 +72,10 @@ shadow_mesh = SubResource("ArrayMesh_nug3g")
 height = 2.925293
 radius = 1.574707
 
-[node name="Node3D" type="Node3D" unique_id=1780693355]
+[node name="Node3D" type="Node3D" unique_id=1780693355 node_paths=PackedStringArray("shop_position_node", "hamster_ball")]
 script = ExtResource("1_qfnet")
+shop_position_node = NodePath("Marker3D")
+hamster_ball = NodePath("Hamsterball")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1008933659]
 collision_layer = 3
@@ -86,8 +88,9 @@ mesh = SubResource("PlaneMesh_7vitk")
 shape = SubResource("BoxShape3D_7vitk")
 
 [node name="Hamsterball" parent="." unique_id=465072004 instance=ExtResource("1_rwgxs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.152163, 13.487818, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.683954, 5.179388, 0)
 angular_damp_mode = 1
+pitch_max = 60.0
 
 [node name="ChaseCamera" type="Camera3D" parent="." unique_id=1390057319]
 transform = Transform3D(1, 0, 0, 0, 0.79566306, 0.6057395, 0, -0.6057395, 0.79566306, 0, 6.6971083, 13.612418)
@@ -172,6 +175,16 @@ offset_bottom = 70.0
 grow_horizontal = 0
 text = "Score: 20000"
 
+[node name="Timer" type="RichTextLabel" parent="UI" unique_id=1233629948]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
 [node name="Fan" type="Area3D" parent="." unique_id=1646677040]
 gravity_space_override = 3
 gravity_point_center = Vector3(0, 1, 0)
@@ -182,4 +195,11 @@ gravity = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.883538, 0.46264648, 0)
 shape = SubResource("CylinderShape3D_aqfoc")
 
+[node name="GameTimer" type="Timer" parent="." unique_id=444467211]
+one_shot = true
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=391161334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2904377, 1.4030914, 0)
+
 [connection signal="pressed" from="UI/Pause/VBoxContainer/Resume" to="UI" method="_on_resume_pressed"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

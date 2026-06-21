@@ -9,6 +9,7 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$Pause.visible = get_tree().paused
 	$Score.text = "Score: " + str(get_parent().score)
+	$Timer.text = str($"../GameTimer".time_left)
 
 func _on_resume_pressed() -> void:
 	get_tree().paused = false
