@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 
 func _process(delta: float) -> void:
+	print(mass)
 	$piv.rotation.y = yaw
 	$piv.rotation.x = pitch
 	
@@ -50,22 +51,22 @@ func _process(delta: float) -> void:
 	var on_ground = $RayCast3D.is_colliding()
 	
 	if(!on_ground):
-		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control)
+		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass)
 	
-	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"])
+	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass)
 
 	$RayCast3D.global_position = global_position - Vector3(0, 0.43, 0)
 	$piv.global_position = global_position + Vector3(0, 2.0, 0)
 	
 	if on_ground and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
-		apply_impulse(Vector3.UP * tap_jump)
+		apply_impulse(Vector3.UP * tap_jump * 4 * mass)
 		is_jumping = true
 		jump_hold_time = 0.0
 
 	if is_jumping and Input.is_action_pressed("jump") and jump_hold_time < MAX_HOLD_TIME:
 		jump_hold_time += delta
 		var t = jump_hold_time / MAX_HOLD_TIME
-		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 1.5 * (1.0 - sqrt(t)))
+		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 4 * (1.0 - sqrt(t)) * mass)
 
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false
