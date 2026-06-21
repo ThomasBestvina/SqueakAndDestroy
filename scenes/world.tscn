@@ -68,6 +68,10 @@ shadow_mesh = SubResource("ArrayMesh_nug3g")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lopsq"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_aqfoc"]
+height = 2.925293
+radius = 1.574707
+
 [node name="Node3D" type="Node3D" unique_id=1780693355]
 script = ExtResource("1_qfnet")
 
@@ -130,22 +134,52 @@ shape = SubResource("CylinderShape3D_lopsq")
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
 script = ExtResource("7_4mrxx")
 
 [node name="Pause" type="Control" parent="UI" unique_id=155863077]
 process_mode = 2
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1151.0
+offset_bottom = 649.0
 
-[node name="Resume" type="Button" parent="UI/Pause" unique_id=378336246]
-layout_mode = 0
-offset_left = 498.0
-offset_top = 570.0
-offset_right = 575.0
-offset_bottom = 601.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Pause" unique_id=1205759550]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="UI/Pause/VBoxContainer" unique_id=378336246]
+layout_mode = 2
 text = "Resume"
 
-[connection signal="pressed" from="UI/Pause/Resume" to="UI" method="_on_resume_pressed"]
+[node name="Score" type="RichTextLabel" parent="UI" unique_id=1044266945]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -172.0
+offset_bottom = 70.0
+grow_horizontal = 0
+text = "Score: 20000"
+
+[node name="Fan" type="Area3D" parent="." unique_id=1646677040]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+gravity = 20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fan" unique_id=693058357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.883538, 0.46264648, 0)
+shape = SubResource("CylinderShape3D_aqfoc")
+
+[connection signal="pressed" from="UI/Pause/VBoxContainer/Resume" to="UI" method="_on_resume_pressed"]
