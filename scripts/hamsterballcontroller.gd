@@ -53,10 +53,9 @@ func _process(delta: float) -> void:
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 	
 	$piv.global_position = global_position + Vector3(0, 2.0, 0)
-	$hamster.global_position = global_position + Vector3(0, -0.07, 0.006)
-	var on_ground = $RayCast3D.is_colliding()
+	$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
 	
-	if(!on_ground):
+	if(!on_floor):
 		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass)
 	
 	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass)

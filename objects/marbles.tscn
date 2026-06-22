@@ -1,0 +1,435 @@
+[gd_scene format=3 uid="uid://d33s201xqyqmq"]
+
+[ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="1_pseyd"]
+[ext_resource type="Shader" uid="uid://cx8bnyoj77i2f" path="res://shaders/marble.gdshader" id="2_7pn4f"]
+[ext_resource type="ArrayMesh" uid="uid://cgydiu7xqexx4" path="res://assets/3D/map/cup.obj" id="3_jregd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r4gi"]
+render_priority = 0
+shader = ExtResource("2_7pn4f")
+shader_parameter/color_a = Color(0.05, 0.3, 0.9, 1)
+shader_parameter/color_b = Color(0.1, 0.3, 0.7, 1)
+shader_parameter/color_c = Color(0.2, 0.1, 0.3, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7vitk"]
+material = SubResource("ShaderMaterial_7r4gi")
+radius = 0.03
+height = 0.06
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7vitk"]
+radius = 0.03063896
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7r4gi"]
+shading_mode = 0
+albedo_color = Color(0.31533903, 0.5416735, 0.43209785, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7r4gi"]
+points = PackedVector3Array(-0.05, 0.060000006, -9.790063e-06, -0.04904072, 0.060000006, -0.009759203, -0.03128426, -0.06, -0.00622553, -0.031891152, -0.06, -9.790063e-06, -0.03128426, -0.06, 0.00621574, -0.04904072, 0.060000006, 0.009749413, -0.046202037, 0.060000006, -0.01913665, -0.029463587, -0.06, -0.012206346, -0.029463587, -0.06, 0.012196552, -0.046202037, 0.060000006, 0.019126859, -0.041581832, 0.060000006, -0.027779954, -0.02651723, -0.06, -0.01771731, -0.02651723, -0.06, 0.017707516, -0.041581832, 0.060000006, 0.027770165, -0.035356306, 0.060000006, -0.035356306, -0.022552859, -0.06, -0.022552859, -0.022552859, -0.06, 0.022543069, -0.035356306, 0.060000006, 0.03534651, -0.027779954, 0.060000006, -0.041581832, -0.01771731, -0.06, -0.02651723, -0.01771731, -0.06, 0.026507441, -0.027779954, 0.060000006, 0.041572038, -0.01913665, 0.060000006, -0.046202037, -0.012206346, -0.06, -0.029463587, -0.012206346, -0.06, 0.029453795, -0.01913665, 0.060000006, 0.046192247, -0.009759203, 0.060000006, -0.04904072, -0.00622553, -0.06, -0.03128426, -0.00622553, -0.06, 0.03127447, -0.009759203, 0.060000006, 0.049030926, -9.790063e-06, 0.060000006, -0.05, -9.790063e-06, -0.06, -0.031891152, -9.790063e-06, -0.06, 0.03188136, -9.790063e-06, 0.060000006, 0.05, 0.009749413, 0.060000006, -0.04904072, 0.00621574, -0.06, -0.03128426, 0.00621574, -0.06, 0.03127447, 0.009749413, 0.060000006, 0.049030926, 0.019126859, 0.060000006, -0.046202037, 0.012196552, -0.06, -0.029463587, 0.012196552, -0.06, 0.029453795, 0.019126859, 0.060000006, 0.046192247, 0.027770165, 0.060000006, -0.041581832, 0.017707516, -0.06, -0.02651723, 0.017707516, -0.06, 0.026507441, 0.027770165, 0.060000006, 0.041572038, 0.03534651, 0.060000006, -0.035356306, 0.022543069, -0.06, -0.022552859, 0.022543069, -0.06, 0.022543069, 0.03534651, 0.060000006, 0.03534651, 0.041572038, 0.060000006, -0.027779954, 0.026507441, -0.06, -0.01771731, 0.026507441, -0.06, 0.017707516, 0.041572038, 0.060000006, 0.027770165, 0.046192247, 0.060000006, -0.01913665, 0.029453795, -0.06, -0.012206346, 0.029453795, -0.06, 0.012196552, 0.046192247, 0.060000006, 0.019126859, 0.049030926, 0.060000006, -0.009759203, 0.03127447, -0.06, -0.00622553, 0.03127447, -0.06, 0.00621574, 0.049030926, 0.060000006, 0.009749413, 0.05, 0.060000006, -9.790063e-06, 0.03188136, -0.06, -9.790063e-06)
+
+[node name="Marbles" type="Node3D" unique_id=1249284733]
+
+[node name="Marble" type="RigidBody3D" parent="." unique_id=938436402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5839703, 0.13992408, 1.217085)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble" unique_id=369401281]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble" unique_id=1912419565]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble6" type="RigidBody3D" parent="." unique_id=1255854604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5839703, 0.22295752, 1.217085)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble6" unique_id=67514022]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble6" unique_id=508696116]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble7" type="RigidBody3D" parent="." unique_id=297012219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5839703, 0.22295752, 1.2783109)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble7" unique_id=1972269886]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble7" unique_id=1647705858]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble8" type="RigidBody3D" parent="." unique_id=2114848399]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6363225, 0.22295752, 1.2783109)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble8" unique_id=530071666]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble8" unique_id=664486165]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble9" type="RigidBody3D" parent="." unique_id=216588089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6363225, 0.22295752, 1.3345364)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble9" unique_id=1437514883]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble9" unique_id=42184128]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble10" type="RigidBody3D" parent="." unique_id=392079720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.573606, 0.22295752, 1.3345364)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble10" unique_id=1261406472]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble10" unique_id=16612688]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble11" type="RigidBody3D" parent="." unique_id=571873378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6854346, 0.22295752, 1.301893)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble11" unique_id=4144815]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble11" unique_id=981381717]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble12" type="RigidBody3D" parent="." unique_id=1060297716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6421723, 0.22295752, 1.218882)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble12" unique_id=1058006787]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble12" unique_id=2090325104]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble13" type="RigidBody3D" parent="." unique_id=1942800403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6421723, 0.31656718, 1.218882)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble13" unique_id=1032779411]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble13" unique_id=24523892]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble14" type="RigidBody3D" parent="." unique_id=341685257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.592384, 0.31656718, 1.2714555)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble14" unique_id=1355816617]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble14" unique_id=625862023]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble15" type="RigidBody3D" parent="." unique_id=860937100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6611247, 0.31656718, 1.2764156)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble15" unique_id=1982744441]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble15" unique_id=1219455668]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble16" type="RigidBody3D" parent="." unique_id=478122030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6092005, 0.31656718, 1.3354751)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble16" unique_id=1527238334]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble16" unique_id=484487181]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble17" type="RigidBody3D" parent="." unique_id=2087561977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6692578, 0.31656718, 1.3367631)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble17" unique_id=1714022101]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble17" unique_id=1244643795]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble18" type="RigidBody3D" parent="." unique_id=1494213387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5868763, 0.31656718, 1.2194649)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble18" unique_id=514760715]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble18" unique_id=1536948835]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble19" type="RigidBody3D" parent="." unique_id=767135402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5868763, 0.41817105, 1.2194649)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble19" unique_id=1155587261]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble19" unique_id=1311471855]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble20" type="RigidBody3D" parent="." unique_id=1272146502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6461997, 0.41817105, 1.2509712)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble20" unique_id=904416753]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble20" unique_id=484509762]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble21" type="RigidBody3D" parent="." unique_id=1115118903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5990587, 0.41817105, 1.2941141)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble21" unique_id=1161372925]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble21" unique_id=1715419077]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble22" type="RigidBody3D" parent="." unique_id=366892227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6695865, 0.41817105, 1.3137721)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble22" unique_id=1543474633]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble22" unique_id=1332518056]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble23" type="RigidBody3D" parent="." unique_id=1467276428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7027422, 0.41817105, 1.2586919)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble23" unique_id=808989947]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble23" unique_id=1247360448]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble24" type="RigidBody3D" parent="." unique_id=371532626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6077838, 0.41817105, 1.3547221)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble24" unique_id=1518495164]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble24" unique_id=1948061527]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble25" type="RigidBody3D" parent="." unique_id=261794247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5400844, 0.41817105, 1.2937912)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble25" unique_id=1520520847]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble25" unique_id=2073190169]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble26" type="RigidBody3D" parent="." unique_id=1527886254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5400844, 0.50712544, 1.2937912)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble26" unique_id=974713979]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble26" unique_id=1985967683]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble27" type="RigidBody3D" parent="." unique_id=1285679355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6044286, 0.50712544, 1.2736521)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble27" unique_id=499129706]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble27" unique_id=1068621622]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble28" type="RigidBody3D" parent="." unique_id=1832150117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.661925, 0.50712544, 1.305593)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble28" unique_id=866035132]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble28" unique_id=997390425]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble29" type="RigidBody3D" parent="." unique_id=1120453412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6093364, 0.50712544, 1.3392981)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble29" unique_id=462449022]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble29" unique_id=445233304]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble31" type="RigidBody3D" parent="." unique_id=1656033369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5897601, 0.50712544, 1.208656)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble31" unique_id=1562844625]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble31" unique_id=239669345]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble30" type="RigidBody3D" parent="." unique_id=941137225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6576561, 0.50712544, 1.2374479)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble30" unique_id=1715566563]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble30" unique_id=55387323]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble2" type="RigidBody3D" parent="." unique_id=64206724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5689666, 0.13992408, 1.2806492)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble2" unique_id=31856714]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble2" unique_id=1390695492]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble3" type="RigidBody3D" parent="." unique_id=102194816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6475092, 0.13992408, 1.2533807)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble3" unique_id=1302739456]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble3" unique_id=764133509]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Marble4" type="RigidBody3D" parent="." unique_id=725192594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6314608, 0.13992408, 1.3207463)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 2
+min_force = 0.18
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble4" unique_id=662488797]
+mesh = SubResource("SphereMesh_7vitk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble4" unique_id=1924410654]
+shape = SubResource("SphereShape3D_7vitk")
+
+[node name="Cup" type="RigidBody3D" parent="." unique_id=840317516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6204474, 0.2826775, 0.5368829)
+mass = 0.2
+script = ExtResource("1_pseyd")
+points_given = 10
+min_force = 0.18
+
+[node name="CupOMarbels" type="MeshInstance3D" parent="Cup" unique_id=530011961]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0.7335471)
+mesh = ExtResource("3_jregd")
+surface_material_override/0 = SubResource("StandardMaterial3D_7r4gi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cup" unique_id=1157677601]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0.7335471)
+shape = SubResource("ConvexPolygonShape3D_7r4gi")

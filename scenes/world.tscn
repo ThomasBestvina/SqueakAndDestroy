@@ -3,21 +3,16 @@
 [ext_resource type="Script" uid="uid://dbjvbegdf8gt5" path="res://scripts/world.gd" id="1_qfnet"]
 [ext_resource type="PackedScene" uid="uid://c116d2p1ao7j5" path="res://objects/hamsterball.tscn" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://dcn77pdvri6op" path="res://scripts/chase_camera.gd" id="2_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://drh0c21i68b65" path="res://ramp1.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://csel0jqmwqsxq" path="res://objects/speedboost.tscn" id="5_71j4m"]
 [ext_resource type="Script" uid="uid://by25bn6pcps5j" path="res://scripts/ui.gd" id="7_4mrxx"]
-[ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://dkayiw0bwahe1" path="res://objects/shop.tscn" id="8_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://bcpndyno4pain" path="res://assets/3D/map/rubberDuck1.glb" id="8_7r4gi"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7vitk"]
-size = Vector2(100, 100)
+size = Vector2(9.652, 5.714)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7vitk"]
 size = Vector3(100, 0.05, 100)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7vitk"]
-friction = 1.8
-rough = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_unocn"]
 
@@ -65,10 +60,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nug3g")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_aqfoc"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_lopsq"]
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_aqfoc"]
 height = 2.925293
 radius = 1.574707
@@ -89,17 +80,13 @@ mesh = SubResource("PlaneMesh_7vitk")
 shape = SubResource("BoxShape3D_7vitk")
 
 [node name="Hamsterball" parent="." unique_id=465072004 instance=ExtResource("1_rwgxs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.683954, 5.179388, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6551142, 0.64161205, 0)
 angular_damp_mode = 1
 pitch_max = 60.0
 
 [node name="ChaseCamera" type="Camera3D" parent="." unique_id=1390057319]
 transform = Transform3D(1, 0, 0, 0, 0.79566306, 0.6057395, 0, -0.6057395, 0.79566306, 0, 6.6971083, 13.612418)
 script = ExtResource("2_rwgxs")
-
-[node name="StaticBody3D2" parent="." unique_id=2016997852 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -2.5862246, 0.024999619, -7.0415745)
-physics_material_override = SubResource("PhysicsMaterial_7vitk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1268748439]
 environment = SubResource("Environment_7vitk")
@@ -123,17 +110,6 @@ transform = Transform3D(-2.5262395e-08, 0.012120694, -0.99992657, 3.5672073e-08,
 
 [node name="ScoringObjects" type="Node3D" parent="." unique_id=1681622631]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="ScoringObjects" unique_id=185414146]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3893037, 0)
-script = ExtResource("7_i7141")
-min_velocity = 1.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ScoringObjects/RigidBody3D" unique_id=483285111]
-mesh = SubResource("CylinderMesh_aqfoc")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ScoringObjects/RigidBody3D" unique_id=553006472]
-shape = SubResource("CylinderShape3D_lopsq")
-
 [node name="UI" type="Control" parent="." unique_id=1042580629]
 process_mode = 3
 layout_mode = 3
@@ -144,7 +120,6 @@ script = ExtResource("7_4mrxx")
 
 [node name="Pause" type="Control" parent="UI" unique_id=155863077]
 process_mode = 2
-visible = false
 anchors_preset = 0
 offset_right = 1151.0
 offset_bottom = 649.0
@@ -167,7 +142,12 @@ grow_vertical = 2
 layout_mode = 2
 text = "Resume"
 
+[node name="Main Menu" type="Button" parent="UI/Pause/VBoxContainer" unique_id=542500906]
+layout_mode = 2
+text = "Main Menu"
+
 [node name="Shop" parent="UI" unique_id=2056966542 instance=ExtResource("8_4mrxx")]
+visible = false
 layout_mode = 1
 
 [node name="Gui" type="Control" parent="UI" unique_id=690010092]
@@ -213,5 +193,9 @@ one_shot = true
 [node name="Marker3D" type="Marker3D" parent="." unique_id=391161334]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2904377, 1.4030914, 0)
 
+[node name="rubberDuck1" parent="." unique_id=7563164 instance=ExtResource("8_7r4gi")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.2555187, 0.21936548, 0)
+
 [connection signal="pressed" from="UI/Pause/VBoxContainer/Resume" to="UI" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/Pause/VBoxContainer/Main Menu" to="UI" method="_on_main_menu_pressed"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

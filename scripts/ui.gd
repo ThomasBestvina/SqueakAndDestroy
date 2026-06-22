@@ -13,3 +13,7 @@ func _process(_delta: float) -> void:
 
 func _on_resume_pressed() -> void:
 	get_tree().paused = false
+
+
+func _on_main_menu_pressed() -> void:
+	get_tree().change_scene_to_packed(preload("res://scenes/menu.tscn"))
