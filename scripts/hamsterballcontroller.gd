@@ -26,15 +26,17 @@ const MAX_HOLD_TIME: float = 0.4
 var is_jumping: bool = false
 var jump_hold_force: float = 1.0
 
+var on_floor = false
+
 func init() -> void:
 	StoatStash.register_input_tracking("jump")
 	mass = 0.3 + GlobalState.state["weight"]
-	$RayCast3D.top_level = true
 	$piv.top_level = true
 	$hamster.top_level = true
 	jump_hold_force = GlobalState.state["jump"]
 
 func _input(event: InputEvent) -> void:
+	if(Input.mouse_mode != Input.MOUSE_MODE_CAPTURED): return
 	if event is InputEventMouseMotion:
 		yaw -= event.relative.x * cam_speed
 		pitch -= event.relative.y * cam_speed
@@ -50,7 +52,6 @@ func _process(delta: float) -> void:
 	
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 	
-	$RayCast3D.global_position = global_position - Vector3(0, 0.245, 0)
 	$piv.global_position = global_position + Vector3(0, 2.0, 0)
 	$hamster.global_position = global_position + Vector3(0, -0.07, 0.006)
 	var on_ground = $RayCast3D.is_colliding()
@@ -62,12 +63,15 @@ func _process(delta: float) -> void:
 	
 	animation_player.play("2Walk")
 	
+	print(angular_velocity.length())
+	if(animation_player.current_animation == "2Walk"):
+		animation_player.speed_scale = angular_velocity.length()/10
+	
 	var vec3 = (right * input.y + -forward * input.x)
-	var vec: Vector2 = Vector2(vec3.x, vec3.z)
+	if(abs(input.x)+abs(input.y) > 0):
+		$hamster.rotation.y = lerp_angle($hamster.rotation.y, atan2(vec3.x, vec3.z), 0.15)
 	
-	$hamster.rotation.y = vec.normalized().angle()
-	
-	if on_ground and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
+	if on_floor and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
 		apply_impulse(Vector3.UP * tap_jump * 4 * mass)
 		is_jumping = true
 		jump_hold_time = 0.0
@@ -79,3 +83,12 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var i := 0
+	on_floor = false
+	while i < state.get_contact_count():
+		var normal := state.get_contact_local_normal(i)
+		if(normal.dot(Vector3.UP) > 0.8):
+			on_floor = true
+		i += 1

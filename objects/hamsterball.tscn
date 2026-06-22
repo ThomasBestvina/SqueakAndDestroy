@@ -1079,6 +1079,8 @@ _data = {
 [node name="Hamsterball" type="RigidBody3D" unique_id=465072004 node_paths=PackedStringArray("cam")]
 physics_material_override = SubResource("PhysicsMaterial_k0juu")
 continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 10
 angular_damp = 0.2
 script = ExtResource("1_pqu4l")
 cam = NodePath("piv/SpringArm3D/CamPos")
@@ -1086,11 +1088,6 @@ cam = NodePath("piv/SpringArm3D/CamPos")
 [node name="Cube" type="MeshInstance3D" parent="." unique_id=656670660]
 transform = Transform3D(0.224, 0, 0, 0, 0.224, 0, 0, 0, 0.224, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7afnx")
-
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1070190670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06046005, 0)
-target_position = Vector3(0, -0.245, 0)
-collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1614688907]
 shape = SubResource("SphereShape3D_7vitk")
@@ -1187,14 +1184,14 @@ bones/10/parent = 0
 bones/10/rest = Transform3D(1, 1.4210855e-14, 3.8941442e-07, 3.8941442e-07, 5.9604645e-07, -1, -2.7000624e-13, 1, 5.9604645e-07, 0.079192765, 0.13088414, 0.05797245)
 bones/10/enabled = true
 bones/10/position = Vector3(0.079192765, 0.13088414, 0.05797245)
-bones/10/rotation = Quaternion(0.7071066, 1.3767882e-07, 1.3767874e-07, 0.70710707)
+bones/10/rotation = Quaternion(0.6385418, 1.4984415e-07, 1.2432864e-07, 0.76958716)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "backLeg.R"
 bones/11/parent = 0
 bones/11/rest = Transform3D(1, -1.4210855e-14, -3.8941442e-07, -3.8941442e-07, 5.9604645e-07, -1, 2.7000624e-13, 1, 5.9604645e-07, -0.079192765, 0.13088414, 0.05797245)
 bones/11/enabled = true
 bones/11/position = Vector3(-0.079192765, 0.13088414, 0.05797245)
-bones/11/rotation = Quaternion(0.7071066, -1.3767882e-07, -1.3767874e-07, 0.70710707)
+bones/11/rotation = Quaternion(0.6385418, -1.4984415e-07, -1.2432864e-07, 0.76958716)
 bones/11/scale = Vector3(1, 1, 1)
 
 [node name="Body" type="MeshInstance3D" parent="hamster/Armature/Skeleton3D" unique_id=916075317]
