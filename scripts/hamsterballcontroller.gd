@@ -15,7 +15,7 @@ var is_holding_jump: bool = false
 const MAX_HOLD_TIME: float = 0.4
 
 @export var pitch_min: float = -60.0
-@export var pitch_max: float = 30.0
+@export var pitch_max: float = 60.0
 
 @export var air_control: float = 0.3 
 
@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	$piv.rotation.y = yaw
-	$piv.rotation.x = pitch
+	$piv/SpringArm3D.rotation.x = pitch
 	
 	
 	var forward = Vector3(-sin(yaw), 0, -cos(yaw))
@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 	
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 	
-	$piv.global_position = global_position + Vector3(0, 2.0, 0)
+	$piv.global_position = global_position + Vector3(0, 0.132, 0)
 	$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
 	
 	if(!on_floor):
@@ -70,14 +70,14 @@ func _process(delta: float) -> void:
 		$hamster.rotation.y = lerp_angle($hamster.rotation.y, atan2(vec3.x, vec3.z), 0.15)
 	
 	if on_floor and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
-		apply_impulse(Vector3.UP * tap_jump * 4 * mass)
+		apply_impulse(Vector3.UP * tap_jump * 1.8 * mass)
 		is_jumping = true
 		jump_hold_time = 0.0
 
 	if is_jumping and Input.is_action_pressed("jump") and jump_hold_time < MAX_HOLD_TIME:
 		jump_hold_time += delta
 		var t = jump_hold_time / MAX_HOLD_TIME
-		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 4 * (1.0 - sqrt(t)) * mass)
+		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 1.8 * (1.0 - sqrt(t)) * mass)
 
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false
