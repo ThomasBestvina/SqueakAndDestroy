@@ -14,12 +14,18 @@ func _ready() -> void:
 	$UI/Shop.init()
 	$UI/Gui.show()
 	
-	for i in $ScoringObjects.get_children():
-		if(i is ObjectiveObject):
-			StoatStash.safe_signal_connect(i.points_scored, add_points)
+	connect_objective_signals($ScoringObjects)
+	
 	$GameTimer.start(GlobalState.state["timer"])
 	$Hamsterball.init()
 
+func connect_objective_signals(start: Node):
+	for i in start.get_children():
+		if(i is ObjectiveObject):
+			StoatStash.safe_signal_connect(i.points_scored, add_points)
+		else: # we don't iterate on every physics object because that'd be slow.
+			connect_objective_signals(i)
+	
 
 func add_points(points: int):
 	GlobalState.state["currency"] += points * GlobalState.state["multiplier"]
