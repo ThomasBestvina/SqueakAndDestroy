@@ -21,15 +21,17 @@ const MAX_HOLD_TIME: float = 0.4
 
 @export var tap_jump: float = 1.0 
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
 var is_jumping: bool = false
 var jump_hold_force: float = 1.0
-
 
 func init() -> void:
 	StoatStash.register_input_tracking("jump")
 	mass = 0.3 + GlobalState.state["weight"]
 	$RayCast3D.top_level = true
 	$piv.top_level = true
+	$hamster.top_level = true
 	jump_hold_force = GlobalState.state["jump"]
 
 func _input(event: InputEvent) -> void:
@@ -39,24 +41,31 @@ func _input(event: InputEvent) -> void:
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 
 func _process(delta: float) -> void:
-	print(mass)
 	$piv.rotation.y = yaw
 	$piv.rotation.x = pitch
+	
 	
 	var forward = Vector3(-sin(yaw), 0, -cos(yaw))
 	var right = Vector3(cos(yaw), 0, -sin(yaw))
 	
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 	
+	$RayCast3D.global_position = global_position - Vector3(0, 0.245, 0)
+	$piv.global_position = global_position + Vector3(0, 2.0, 0)
+	$hamster.global_position = global_position + Vector3(0, -0.07, 0.006)
 	var on_ground = $RayCast3D.is_colliding()
 	
 	if(!on_ground):
 		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass)
 	
 	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass)
-
-	$RayCast3D.global_position = global_position - Vector3(0, 0.43, 0)
-	$piv.global_position = global_position + Vector3(0, 2.0, 0)
+	
+	animation_player.play("2Walk")
+	
+	var vec3 = (right * input.y + -forward * input.x)
+	var vec: Vector2 = Vector2(vec3.x, vec3.z)
+	
+	$hamster.rotation.y = vec.normalized().angle()
 	
 	if on_ground and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
 		apply_impulse(Vector3.UP * tap_jump * 4 * mass)

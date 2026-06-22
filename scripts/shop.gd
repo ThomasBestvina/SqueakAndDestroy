@@ -69,7 +69,7 @@ func type_to_string(type: UpgradeType) -> String:
 		UpgradeType.SPEED:
 			return "speed"
 		UpgradeType.TIME:
-			return "time"
+			return "timer"
 		UpgradeType.JUMP:
 			return "jump"
 		UpgradeType.WEIGHT:

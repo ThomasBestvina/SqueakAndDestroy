@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc02ojk5gokdi"
-path.bptc="res://.godot/imported/rubberDuck1_rubberTexture1.png-a490c460153d409778dd50ab1c2705f1.bptc.ctex"
+uid="uid://bn3h451cb32bs"
+path.bptc="res://.godot/imported/hamster_hamsterFur1.png-f2d78251d2c10156f9188bb1ddafb752.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "de1982c33125af383f298aad19db3fd3"
+"md5": "8ef7a1c0f993a8edde5123322067624b"
 }
 
 [deps]
 
-source_file="res://assets/3D/map/rubberDuck1_rubberTexture1.png"
-dest_files=["res://.godot/imported/rubberDuck1_rubberTexture1.png-a490c460153d409778dd50ab1c2705f1.bptc.ctex"]
+source_file="res://assets/3D/hamster/hamster_hamsterFur1.png"
+dest_files=["res://.godot/imported/hamster_hamsterFur1.png-f2d78251d2c10156f9188bb1ddafb752.bptc.ctex"]
 
 [params]
 
