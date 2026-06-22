@@ -63,7 +63,6 @@ func _process(delta: float) -> void:
 	
 	animation_player.play("2Walk")
 	
-	print(angular_velocity.length())
 	if(animation_player.current_animation == "2Walk"):
 		animation_player.speed_scale = angular_velocity.length()/10
 	
