@@ -33,7 +33,7 @@ func init():
 	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
 	%RocketBoost/RichTextLabel.text = str(cost_calculator(UpgradeType.BOOST))
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	%RocketFuel.visible = GlobalState.state["boost"] > 0
 	%GrapplingRange.visible = GlobalState.state["hook"] > 0
 

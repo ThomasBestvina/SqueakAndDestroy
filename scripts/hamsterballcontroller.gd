@@ -156,7 +156,10 @@ func update_rope_graphic(delta: float):
 	hook_mesh.global_position = mid
 	if(distance > 0.001):
 		hook_mesh.mesh.height = distance
-		hook_mesh.look_at(hook_visual_pos, Vector3.UP)
+		if abs(hook_visual_pos.normalized().dot(Vector3.UP)) < 0.001:
+			hook_mesh.look_at(hook_visual_pos, Vector3.UP)
+		else:
+			hook_mesh.look_at(hook_visual_pos, Vector3.FORWARD)
 		hook_mesh.rotate_object_local(Vector3.RIGHT, PI / 2.0)
 
 func _physics_process(delta: float) -> void:
