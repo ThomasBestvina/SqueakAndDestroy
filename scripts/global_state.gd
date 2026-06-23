@@ -8,7 +8,7 @@ var state: Dictionary = {
 	"weight": 0.0,
 	"multiplier": 1,
 	"hook": 0,
-	"boost": 0
+	"boost": 1
 }
 
 

@@ -48,11 +48,11 @@ func cost_calculator(type: UpgradeType) -> int:
 func upgrade_number(type: UpgradeType): # no return promise, as we may return a float or int
 	match type:
 		UpgradeType.SPEED:
-			return 1
+			return 2
 		UpgradeType.TIME:
 			return 10
 		UpgradeType.JUMP:
-			return 2
+			return 1
 		UpgradeType.WEIGHT:
 			return 0.2
 		UpgradeType.MULTIPLIER:

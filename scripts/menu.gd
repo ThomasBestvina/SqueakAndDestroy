@@ -2,7 +2,7 @@ extends Control
 
 @onready var world = preload("res://scenes/world.tscn")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var file = FileAccess.open("user://hamsterballawesomesave.dat", FileAccess.READ)
 	$VBoxContainer/Continue.disabled = !file
 
