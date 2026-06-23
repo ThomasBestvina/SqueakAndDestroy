@@ -126,6 +126,21 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Unlock Grappling Hook"
 
+[node name="GrapplingRange" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=787295009]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/GrapplingRange" unique_id=329987158]
+custom_minimum_size = Vector2(0, 23.245)
+layout_mode = 2
+text = "500"
+horizontal_alignment = 1
+
+[node name="RangeUp" type="Button" parent="VBoxContainer/GridContainer/GrapplingRange" unique_id=324092196]
+layout_mode = 2
+text = "Upgrade Grapple Range"
+
 [node name="RocketBoost" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1350147716]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -139,7 +154,23 @@ horizontal_alignment = 1
 
 [node name="RocketUp" type="Button" parent="VBoxContainer/GridContainer/RocketBoost" unique_id=1111862376]
 layout_mode = 2
-text = "Unlock Rocket Boost
+text = "Unlock Jetpack
+"
+
+[node name="RocketFuel" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=66677136]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/RocketFuel" unique_id=1700304165]
+custom_minimum_size = Vector2(0, 23.245)
+layout_mode = 2
+text = "500"
+horizontal_alignment = 1
+
+[node name="FuelUp" type="Button" parent="VBoxContainer/GridContainer/RocketFuel" unique_id=1016156636]
+layout_mode = 2
+text = "Upgrade Jetpack Fuel
 "
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=230734726]
@@ -152,5 +183,7 @@ text = "Done"
 [connection signal="pressed" from="VBoxContainer/GridContainer/Weight/WeightUp" to="." method="_on_weight_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/Multiplier/MultiplierUp" to="." method="_on_multiplier_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/GrapplingHook/GrappleUp" to="." method="_on_grapple_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/GrapplingRange/RangeUp" to="." method="_on_range_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer/RocketBoost/RocketUp" to="." method="_on_rocket_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/RocketFuel/FuelUp" to="." method="_on_fuel_up_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -5,14 +5,17 @@ class_name Shop extends Control
 #	"currency": 0,
 #	"timer": 30,
 #	"speed": 1,
-#	"jump": 0,
-#	"weight": 0.1,
+#	"jump": 0, #jump unlock and jump power
+#	"weight": 0.0,
 #	"multiplier": 1,
-#	"hook": 0,
-#	"boost": 0
+#	"hook": 1, #hook unlock and hook power
+#	"hook_range": 2.0,
+#	"boost": 1, #jetpack unlock and jetpack power
+#	"boost_fuel": 1.0
 #}
 
-enum UpgradeType {SPEED,TIME,JUMP,WEIGHT,MULTIPLIER,GRAPPLE,BOOST}
+
+enum UpgradeType {SPEED,TIME,JUMP,WEIGHT,MULTIPLIER,GRAPPLE,RANGE,BOOST,FUEL}
 
 func init():
 	%Speed/RichTextLabel.text = str(cost_calculator(UpgradeType.SPEED))
@@ -21,10 +24,18 @@ func init():
 	
 	%Jump/JumpUp.text = "Upgrade Jump" if GlobalState.state["jump"] > 0 else "Unlock Jump"
 	
+	%GrapplingHook/GrappleUp.text = "Upgrade Grapple Power" if GlobalState.state["hook"] > 0 else "Unlock Grappling Hook"
+	
+	%RocketBoost/RocketUp.text = "Upgrade Jetpack Power" if GlobalState.state["boost"] > 0 else "Unlock Jetpack"
+	
 	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
 	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
 	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
 	%RocketBoost/RichTextLabel.text = str(cost_calculator(UpgradeType.BOOST))
+
+func _process(delta: float) -> void:
+	%RocketFuel.visible = GlobalState.state["boost"] > 0
+	%GrapplingRange.visible = GlobalState.state["hook"] > 0
 
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
@@ -42,6 +53,10 @@ func cost_calculator(type: UpgradeType) -> int:
 			return int(pow(9, GlobalState.state["hook"] + 1))
 		UpgradeType.BOOST:
 			return int(pow(7, GlobalState.state["boost"] + 1))
+		UpgradeType.RANGE:
+			return int(pow(8, GlobalState.state["hook_range"] + 1))
+		UpgradeType.FUEL:
+			return int(pow(8, GlobalState.state["boost_fuel"] * 2 + 1))
 		_:
 			return 0
 
@@ -61,6 +76,10 @@ func upgrade_number(type: UpgradeType): # no return promise, as we may return a 
 			return 1
 		UpgradeType.BOOST:
 			return 1
+		UpgradeType.RANGE:
+			return 0.5
+		UpgradeType.FUEL:
+			return 0.5
 		_:
 			return 0
 
@@ -80,6 +99,10 @@ func type_to_string(type: UpgradeType) -> String:
 			return "hook"
 		UpgradeType.BOOST:
 			return "boost"
+		UpgradeType.RANGE:
+			return "hook_range"
+		UpgradeType.FUEL:
+			return "boost_fuel"
 		_:
 			return ""
 	
@@ -111,14 +134,24 @@ func _on_rocket_up_pressed() -> void:
 func _on_jump_up_pressed() -> void:
 	buy(UpgradeType.JUMP, %Jump/RichTextLabel)
 
-func buy(thing: UpgradeType, textEdit: RichTextLabel):
+func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 	var cost: int = cost_calculator(thing)
 	if(GlobalState.state["currency"] >= cost):
 		GlobalState.state["currency"] -= cost
 		GlobalState.state[type_to_string(thing)] += upgrade_number(thing)
 		textEdit.text = str(cost_calculator(thing))
 		GlobalState.save_game()
+		return true
+	return false
 
 
 func _on_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_fuel_up_pressed() -> void:
+	buy(UpgradeType.FUEL, %RocketFuel/FuelUp)
+
+
+func _on_range_up_pressed() -> void:
+	buy(UpgradeType.RANGE, %GrapplingRange/RangeUp)

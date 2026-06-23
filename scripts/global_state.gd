@@ -4,11 +4,13 @@ var state: Dictionary = {
 	"currency": 0,
 	"timer": 30,
 	"speed": 1,
-	"jump": 0,
+	"jump": 0, #jump unlock and jump power
 	"weight": 0.0,
 	"multiplier": 1,
-	"hook": 0,
-	"boost": 1
+	"hook": 1, #hook unlock and hook power
+	"hook_range": 2.4,
+	"boost": 0, #jetpack unlock and jetpack power
+	"boost_fuel": 1.0
 }
 
 

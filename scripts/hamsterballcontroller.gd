@@ -35,26 +35,26 @@ var on_floor = false
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 @export_category("Grappling Hook")
-@export var pull_force: float = 5.0
-@export var max_rope_length: float = 20.0
-
 @onready var hook_origin: Node3D = %HookStart
 
 @onready var hook_mesh = $HookMesh
 
 var hook_traveling: bool = false
+var hook_retracting: bool = false
 var hook_visual_pos: Vector3 = Vector3.ZERO
-@export var hook_travel_speed: float = 40.0
+@export var hook_travel_speed: float = 15.0
+@export var hook_travel_retract_speed: float = 10.0
 
 var hooked: bool = false
 var hook_point: Vector3 = Vector3.ZERO
+var hook_hit: bool = false
 
 @export_category("Jetpack")
-@export var boost_force: float = 11.0
-var boost_fuel: float = 1.0
+var boost_fuel = 1.0
 
 func init() -> void:
 	StoatStash.register_input_tracking("jump")
+	hook_visual_pos = hook_origin.global_position
 	mass = 0.3 + GlobalState.state["weight"]
 	$piv.top_level = true
 	$Hook.top_level = true
@@ -64,6 +64,7 @@ func init() -> void:
 	$Hook.visible = GlobalState.state["hook"] > 0
 	$jetpack.visible = GlobalState.state["boost"] > 0
 	jump_hold_force = GlobalState.state["jump"]
+	boost_fuel = GlobalState.state["boost_fuel"]
 
 func _input(event: InputEvent) -> void:
 	if(Input.mouse_mode != Input.MOUSE_MODE_CAPTURED): return
@@ -72,12 +73,6 @@ func _input(event: InputEvent) -> void:
 		pitch -= event.relative.y * cam_speed
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 	
-	if event.is_action_pressed("hook"):
-		shoot_hook()
-	if event.is_action_released("hook"):
-		hooked = false
-		hook_traveling = false
-
 
 func _process(delta: float) -> void:
 	$piv.rotation.y = yaw
@@ -95,25 +90,39 @@ func _process(delta: float) -> void:
 	if(!hooked and !hook_traveling):
 		%stickyHand.global_transform = $Hook/stickyHandNormal.global_transform
 	
+	if Input.is_action_just_pressed("hook"):
+		shoot_hook()
+	if Input.is_action_just_released("hook"):
+		hooked = false
+		hook_traveling = false
+		if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
+			hook_retracting = true
+
+	
 	update_rope_graphic(delta)
 
 func shoot_hook():
 	if(GlobalState.state["hook"] == 0): return
 	var space_state = get_world_3d().direct_space_state
 	var cam_node = $piv/SpringArm3D/CamPos
+	var ray_end = cam_node.global_position + (-cam_node.global_basis.z * GlobalState.state["hook_range"])
 	var query = PhysicsRayQueryParameters3D.create(
 		cam_node.global_position,
-		cam_node.global_position + (-cam_node.global_basis.z * max_rope_length)
+		ray_end
 	)
 	query.collision_mask = 0b1000 # 4 layer
 	var result = space_state.intersect_ray(query)
 	if result:
 		hook_point = result.position
-		hook_visual_pos = hook_origin.global_position
-		hook_traveling = true
+		hook_hit = true
+	else:
+		hook_point = ray_end
+		hook_hit = false
+	hook_visual_pos = hook_origin.global_position
+	hook_traveling = true
 
 func update_rope_graphic(delta: float):
-	hook_mesh.visible = hooked or hook_traveling
+	hook_mesh.visible = hooked or hook_traveling or hook_retracting
 	
 	if hook_traveling:
 		var dir = hook_point - hook_visual_pos
@@ -122,20 +131,33 @@ func update_rope_graphic(delta: float):
 		if dist <= step:
 			hook_visual_pos = hook_point
 			hook_traveling = false
-			hooked = true
+			if hook_hit:
+				hooked = true
+			else:
+				hook_retracting = true
+		else:
+			hook_visual_pos += dir.normalized() * step
+	if hook_retracting:
+		var dir = hook_origin.global_position - hook_visual_pos
+		var dist = dir.length()
+		var step = hook_travel_retract_speed * delta
+		if dist <= step:
+			hook_visual_pos = hook_origin.global_position
+			hook_retracting = false
 		else:
 			hook_visual_pos += dir.normalized() * step
 	
-	if(hooked or hook_traveling):
+	if(hooked or hook_traveling or hook_retracting):
 		%stickyHand.global_position = hook_visual_pos
 	
 	var mid = (hook_origin.global_position + hook_visual_pos) / 2.0
 	var distance = hook_origin.global_position.distance_to(hook_visual_pos)
 	
 	hook_mesh.global_position = mid
-	hook_mesh.mesh.height = distance
-	hook_mesh.look_at(hook_visual_pos, Vector3.UP)
-	hook_mesh.rotate_object_local(Vector3.RIGHT, PI / 2.0)
+	if(distance > 0.001):
+		hook_mesh.mesh.height = distance
+		hook_mesh.look_at(hook_visual_pos, Vector3.UP)
+		hook_mesh.rotate_object_local(Vector3.RIGHT, PI / 2.0)
 
 func _physics_process(delta: float) -> void:
 	var forward = Vector3(-sin(yaw), 0, -cos(yaw))
@@ -170,23 +192,22 @@ func _physics_process(delta: float) -> void:
 		is_jumping = false
 	
 	# grappling hook
-	if hooked:
+	if hooked && hook_hit:
 		var to_hook = hook_point - hook_origin.global_position
 		var distance = to_hook.length()
 		
-		if distance > max_rope_length:
+		if distance > GlobalState.state["hook_range"]:
 			hooked = false
+
 			return
 		
 		if distance > 1.0:
-			apply_central_force(to_hook.normalized() * pull_force * mass)
-		
-	
+			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 2 * mass)
+
 	#jetpack
 	
 	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") and boost_fuel > 0:
-		print("Joe?")
-		apply_central_force(Vector3.UP * boost_force * mass)
+		apply_central_force(Vector3.UP * GlobalState.state["boost"] * 5 * mass)
 		boost_fuel -= delta
 		boost_fuel = max(boost_fuel, 0.0)
 
