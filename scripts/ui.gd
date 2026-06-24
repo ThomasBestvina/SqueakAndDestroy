@@ -3,9 +3,10 @@ extends Control
 var scene = load("res://scenes/menu.tscn")
 
 func _process(_delta: float) -> void:
+
 	if(Input.is_action_just_pressed("pause")):
 		get_tree().paused = !get_tree().paused
-	if(get_tree().paused or $Shop.visible):
+	if(get_tree().paused):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -22,3 +23,8 @@ func _on_resume_pressed() -> void:
 
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_packed(scene)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_MOUSE_EXIT:
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

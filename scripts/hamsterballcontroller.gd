@@ -63,6 +63,7 @@ func init() -> void:
 	hook_visual_pos = hook_origin.global_position
 	mass = 0.3 + GlobalState.state["weight"]
 	$piv.top_level = true
+	$piv2.top_level = true
 	$Hook.top_level = true
 	$jetpack.top_level = true
 	$hamster.top_level = true
@@ -82,6 +83,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	$piv.rotation.y = yaw
+	$piv2.rotation.y = yaw
 	$piv/SpringArm3D.rotation.x = pitch
 	
 	$Hook.global_position = global_position
@@ -91,15 +93,16 @@ func _process(delta: float) -> void:
 	$Hook.rotation.y = yaw
 	
 	$piv.global_position = global_position + Vector3(0, 0.132, 0)
+	$piv2.global_position = global_position + Vector3(0, 0.132, 0)
 	
 	if(!is_stunned):
-		$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
+		$hamster.global_position = global_position + Vector3(0, -0.024, 0)
 	if(!hooked and !hook_traveling):
 		%stickyHand.global_transform = $Hook/stickyHandNormal.global_transform
 	
-	if Input.is_action_just_pressed("hook") && !is_stunned:
+	if Input.is_action_just_pressed("hook") && !is_stunned && GlobalState.state["hook"] > 0:
 		shoot_hook()
-	if Input.is_action_just_released("hook") && !is_stunned:
+	if Input.is_action_just_released("hook") && !is_stunned && GlobalState.state["hook"] > 0:
 		hooked = false
 		hook_traveling = false
 		if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
@@ -213,7 +216,7 @@ func _physics_process(delta: float) -> void:
 		is_jumping = false
 	
 	# stun
-	if not is_stunned and angular_velocity.length() > log(GlobalState.state["speed"]+1) * 15:
+	if not is_stunned and angular_velocity.length() > log(GlobalState.state["speed"]+2) * 20:
 		is_stunned = true
 		stun_timer = STUN_DURATION
 		animation_player.play("3LosingBalance")
@@ -250,7 +253,7 @@ func _physics_process(delta: float) -> void:
 	#jetpack
 	
 	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") && boost_fuel > 0 && !is_stunned:
-		apply_central_force(Vector3.UP * GlobalState.state["boost"] * 5 * mass)
+		apply_central_force(Vector3.UP * GlobalState.state["boost"] * 12 * mass)
 		boost_fuel -= delta
 		boost_fuel = max(boost_fuel, 0.0)
 

@@ -17,6 +17,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ul6j")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=173065297]
+custom_minimum_size = Vector2(200, -72.29)
+layout_mode = 0
+offset_left = -80.0
+offset_top = -267.0
+offset_right = -40.0
+offset_bottom = -227.0
+text = "Currency"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1724639772]
 layout_mode = 1
 anchors_preset = 8
