@@ -15,6 +15,10 @@ extends RigidBody3D
 
 @export var tap_jump: float = 1.0 
 
+var is_stunned: bool = false
+var stun_timer: float = 0.0
+const STUN_DURATION: float = 2.0
+
 
 var was_moving_backward = false
 
@@ -87,13 +91,15 @@ func _process(delta: float) -> void:
 	$Hook.rotation.y = yaw
 	
 	$piv.global_position = global_position + Vector3(0, 0.132, 0)
-	$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
+	
+	if(!is_stunned):
+		$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
 	if(!hooked and !hook_traveling):
 		%stickyHand.global_transform = $Hook/stickyHandNormal.global_transform
 	
-	if Input.is_action_just_pressed("hook"):
+	if Input.is_action_just_pressed("hook") && !is_stunned:
 		shoot_hook()
-	if Input.is_action_just_released("hook"):
+	if Input.is_action_just_released("hook") && !is_stunned:
 		hooked = false
 		hook_traveling = false
 		if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
@@ -108,7 +114,7 @@ func _process(delta: float) -> void:
 		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = 0
 	if(game_end):
 		print(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence)
-		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = move_toward(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence, 1.0, delta/3)
+		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = move_toward(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence, 1.0, delta/2.4)
 
 func shoot_hook():
 	if(GlobalState.state["hook"] == 0): return
@@ -170,24 +176,27 @@ func update_rope_graphic(delta: float):
 		else:
 			hook_mesh.look_at(hook_visual_pos, Vector3.FORWARD)
 		hook_mesh.rotate_object_local(Vector3.RIGHT, PI / 2.0)
+	$hamster.top_level = !is_stunned
 
 func _physics_process(delta: float) -> void:
 	var forward = Vector3(-sin(yaw), 0, -cos(yaw))
 	var right = Vector3(cos(yaw), 0, -sin(yaw))
 	
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
-	if(!on_floor):
+	if(!on_floor && !is_stunned):
 		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass * 0.03)
 	
-	apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass * 0.03)
-	
-	animation_player.play("2Walk")
+	if(!is_stunned):
+		apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass * 0.03)
+		$hamster.rotation.x = 0
+		$hamster.rotation.z = 0
+		animation_player.play("2Walk")
 	
 	if(animation_player.current_animation == "2Walk"):
 		animation_player.speed_scale = angular_velocity.length()/10
 	
 	var vec3 = (right * input.y + -forward * input.x)
-	if(abs(input.x)+abs(input.y) > 0):
+	if(abs(input.x)+abs(input.y) > 0 && !is_stunned):
 		$hamster.rotation.y = lerp_angle($hamster.rotation.y, atan2(vec3.x, vec3.z), 0.15)
 	
 	if on_floor and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
@@ -203,6 +212,23 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false
 	
+	# stun
+	if not is_stunned and angular_velocity.length() > log(GlobalState.state["speed"]+1) * 15:
+		is_stunned = true
+		stun_timer = STUN_DURATION
+		animation_player.play("3LosingBalance")
+	if is_stunned:
+		stun_timer -= delta
+		if(!animation_player.is_playing()):
+			animation_player.play("4LostBalance")
+		if(stun_timer <= 0.0):
+			is_stunned = false
+	if(stun_timer <= 0.5 and is_stunned):
+		animation_player.play("5GainBalance")
+		$hamster.global_position = lerp($hamster.global_position,global_position + Vector3(0, -0.04, -0.001), delta*2)
+		$hamster.rotation.x = lerp_angle($hamster.rotation.x, 0.0, delta*4)
+		$hamster.rotation.z = lerp_angle($hamster.rotation.z, 0.0, delta*4)
+	
 	# grappling hook
 	if hooked && hook_hit:
 		var to_hook = hook_point - hook_origin.global_position
@@ -210,15 +236,20 @@ func _physics_process(delta: float) -> void:
 		
 		if distance > GlobalState.state["hook_range"]:
 			hooked = false
-
 			return
+		
+		if(is_stunned):
+			hooked = false
+			hook_traveling = false
+			if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
+				hook_retracting = true
 		
 		if distance > 1.0:
 			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 2 * mass)
 
 	#jetpack
 	
-	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") and boost_fuel > 0:
+	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") && boost_fuel > 0 && !is_stunned:
 		apply_central_force(Vector3.UP * GlobalState.state["boost"] * 5 * mass)
 		boost_fuel -= delta
 		boost_fuel = max(boost_fuel, 0.0)
