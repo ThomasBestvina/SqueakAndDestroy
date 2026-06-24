@@ -7,6 +7,8 @@ extends Node3D
 
 var transporting_back = false
 
+var begin_end: bool = false
+
 @export var transport_speed: float = 1.0
 func _ready() -> void:
 	GlobalState.load_game() # We want to do this every time the scene loads because it is assumed all progress gets saved as soon as there is a change, thus what is on the disk is correct
@@ -30,6 +32,9 @@ func connect_objective_signals(start: Node):
 func add_points(points: int):
 	GlobalState.state["currency"] += points * GlobalState.state["multiplier"]
 
+func _process(_delta: float) -> void:
+	if($GameTimer.time_left < 3):
+		begin_end = true
 
 func _physics_process(delta: float) -> void:
 	# transport procedure

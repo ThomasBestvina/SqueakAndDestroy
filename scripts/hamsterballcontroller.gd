@@ -31,6 +31,8 @@ var jump_hold_force: float = 1.0
 
 var on_floor = false
 
+var game_end = false
+
 @export_category("Animation")
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
@@ -86,7 +88,6 @@ func _process(delta: float) -> void:
 	
 	$piv.global_position = global_position + Vector3(0, 0.132, 0)
 	$hamster.global_position = global_position + Vector3(0, -0.04, -0.001)
-	
 	if(!hooked and !hook_traveling):
 		%stickyHand.global_transform = $Hook/stickyHandNormal.global_transform
 	
@@ -100,6 +101,14 @@ func _process(delta: float) -> void:
 
 	
 	update_rope_graphic(delta)
+	
+	if(get_parent().begin_end && !game_end):
+		game_end = true
+		%glovedHands.show()
+		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = 0
+	if(game_end):
+		print(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence)
+		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = move_toward(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence, 1.0, delta/3)
 
 func shoot_hook():
 	if(GlobalState.state["hook"] == 0): return
