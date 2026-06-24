@@ -22,52 +22,54 @@ func init():
 	%Time/RichTextLabel.text = str(cost_calculator(UpgradeType.TIME))
 	%Jump/RichTextLabel.text = str(cost_calculator(UpgradeType.JUMP))
 	
+	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
+	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
+	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
+	%RocketBoost/RichTextLabel.text = str(cost_calculator(UpgradeType.BOOST))
+	%GrapplingRange/RichTextLabel.text = str(cost_calculator(UpgradeType.RANGE))
+	%RocketFuel/RichTextLabel.text = str(cost_calculator(UpgradeType.FUEL))
+
+func _process(_delta: float) -> void:
+	%RocketFuel.visible = GlobalState.state["boost"] > 0
+	%GrapplingRange.visible = GlobalState.state["hook"] > 0
+	$RichTextLabel.text = str(GlobalState.state["currency"])
 	%Jump/JumpUp.text = "Upgrade Jump" if GlobalState.state["jump"] > 0 else "Unlock Jump"
 	
 	%GrapplingHook/GrappleUp.text = "Upgrade Grapple Power" if GlobalState.state["hook"] > 0 else "Unlock Grappling Hook"
 	
 	%RocketBoost/RocketUp.text = "Upgrade Jetpack Power" if GlobalState.state["boost"] > 0 else "Unlock Jetpack"
-	
-	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
-	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
-	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
-	%RocketBoost/RichTextLabel.text = str(cost_calculator(UpgradeType.BOOST))
-
-func _process(_delta: float) -> void:
-	%RocketFuel.visible = GlobalState.state["boost"] > 0
-	%GrapplingRange.visible = GlobalState.state["hook"] > 0
 
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return int(pow(7, GlobalState.state["speed"] + 1))
+			return int(pow(5, GlobalState.state["speed"] - 1) * 15)
 		UpgradeType.TIME:
 			return int(pow(GlobalState.state["timer"]-29, 1.2))
 		UpgradeType.JUMP:
-			return int(pow(GlobalState.state["jump"] + 1, 2) * 10)
+			return int(pow(GlobalState.state["jump"] + 1, 2) * 8)
 		UpgradeType.WEIGHT:
-			return int(pow(GlobalState.state["weight"] * 10 + 1, 2) * 8)
+			return int(pow(GlobalState.state["weight"] * 3 + 1, 2) * 5)
 		UpgradeType.MULTIPLIER:
-			return int(pow(10, GlobalState.state["multiplier"]))
+			return int(pow(3.5, GlobalState.state["multiplier"]) * 10)
 		UpgradeType.GRAPPLE:
-			return int(pow(9, GlobalState.state["hook"] + 1))
+			return int(pow(GlobalState.state["hook"], 1.8) * 5 + 50)
 		UpgradeType.BOOST:
-			return int(pow(7, GlobalState.state["boost"] + 1))
+			return int(pow(1.2, GlobalState.state["boost"]) * 10 + 50)
 		UpgradeType.RANGE:
-			return int(pow(8, GlobalState.state["hook_range"] + 1))
+			return int(pow(GlobalState.state["hook_range"], 1.5) + 12)
 		UpgradeType.FUEL:
-			return int(pow(8, GlobalState.state["boost_fuel"] * 2 + 1))
+			return int(pow(GlobalState.state["boost_fuel"] * 2 + 1, 1.9))
 		_:
 			return 0
 
 func upgrade_number(type: UpgradeType): # no return promise, as we may return a float or int
 	match type:
 		UpgradeType.SPEED:
-			return 2
+			return 0.6
 		UpgradeType.TIME:
-			return 10
+			return 5 # seconds
 		UpgradeType.JUMP:
-			return 1
+			return 1 
 		UpgradeType.WEIGHT:
 			return 0.2
 		UpgradeType.MULTIPLIER:
@@ -77,9 +79,9 @@ func upgrade_number(type: UpgradeType): # no return promise, as we may return a 
 		UpgradeType.BOOST:
 			return 1
 		UpgradeType.RANGE:
-			return 0.5
+			return 0.5 # meters
 		UpgradeType.FUEL:
-			return 0.5
+			return 0.5 # seconds
 		_:
 			return 0
 
@@ -143,15 +145,15 @@ func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 		GlobalState.save_game()
 		return true
 	return false
-
+''
 
 func _on_button_pressed() -> void:
 	get_tree().reload_current_scene()
 
 
 func _on_fuel_up_pressed() -> void:
-	buy(UpgradeType.FUEL, %RocketFuel/FuelUp)
+	buy(UpgradeType.FUEL, %RocketFuel/RichTextLabel)
 
 
 func _on_range_up_pressed() -> void:
-	buy(UpgradeType.RANGE, %GrapplingRange/RangeUp)
+	buy(UpgradeType.RANGE, %GrapplingRange/RichTextLabel)

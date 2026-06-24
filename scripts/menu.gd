@@ -2,6 +2,10 @@ extends Control
 
 @onready var world = preload("res://scenes/world.tscn")
 
+func _ready() -> void:
+	if(OS.get_name() == "Web"):
+		$VBoxContainer/Quit.hide()
+
 func _process(_delta: float) -> void:
 	var file = FileAccess.open("user://hamsterballawesomesave.dat", FileAccess.READ)
 	$VBoxContainer/Continue.disabled = !file
