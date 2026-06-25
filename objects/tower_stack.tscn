@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dewykunhyyxbx"]
+
+[ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="1_u2s8d"]
+
+[node name="TowerStack" type="RigidBody3D" unique_id=1307632785]
+script = ExtResource("1_u2s8d")
+metadata/_custom_type_script = "uid://eb8g5ldd2kol"
