@@ -6,6 +6,7 @@ var already_scored = false
 
 @export var points_given: int = 50
 @export var min_force: float = 0.25
+@export var force_hit_points_award: bool = false
 var initial_rotation: Vector3
 
 var spawn_time: float = 0.0
@@ -25,12 +26,11 @@ func _process(delta: float) -> void:
 		initial_rotation = rotation
 
 func body_collision(body: Node):
-	if(body is RigidBody3D and not already_scored):
+	if(body is RigidBody3D and not already_scored and force_hit_points_award):
 		for i in get_contact_count():
 			var relative_velocity = (linear_velocity - body.linear_velocity).length()
 			var reduced_mass = (mass * body.mass) / (mass + body.mass)
 			var impulse_approx = relative_velocity * reduced_mass
-			print(impulse_approx)
 			if impulse_approx >= min_force and spawn_time >= 3:
 				already_scored = true
 				points_scored.emit(points_given)

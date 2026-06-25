@@ -3,13 +3,13 @@ extends Node
 var state: Dictionary = {
 	"currency": 0,
 	"timer": 30,
-	"speed": 1,
+	"speed": 3,
 	"jump": 0, #jump unlock and jump powerw
 	"weight": 0.0,
 	"multiplier": 1,
-	"hook": 0, #hook unlock and hook power
-	"hook_range": 2.4,
-	"boost": 0, #jetpack unlock and jetpack power
+	"hook": 7, #hook unlock and hook power
+	"hook_range": 3,
+	"boost": 1, #jetpack unlock and jetpack power
 	"boost_fuel": 1.0
 }
 

@@ -4,15 +4,18 @@ var scene = load("res://scenes/menu.tscn")
 
 func _process(_delta: float) -> void:
 
-	if(Input.is_action_just_pressed("pause")):
+	if(Input.is_action_just_pressed("pause") and !$Shop.visible):
 		get_tree().paused = !get_tree().paused
-	if(get_tree().paused):
+	if(get_tree().paused or $Shop.visible):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$Pause.visible = get_tree().paused
 	$Gui/Score.text = "Currency: " + str(GlobalState.state["currency"])
 	$Gui/Timer.text = str($"../GameTimer".time_left)
+	
+	if($Shop.visible):
+		get_tree().paused = false
 	
 	$Gui/Crosshair.visible = GlobalState.state["hook"] > 0
 

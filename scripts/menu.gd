@@ -1,6 +1,6 @@
 extends Control
 
-@onready var world = preload("res://scenes/world.tscn")
+@onready var world = preload("res://scenes/world.scn")
 
 func _ready() -> void:
 	if(OS.get_name() == "Web"):

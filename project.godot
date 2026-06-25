@@ -22,13 +22,16 @@ GlobalState="*uid://coei0w2g6tnjx"
 
 [display]
 
-window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[global_group]
+
+hamster=""
 
 [input]
 
