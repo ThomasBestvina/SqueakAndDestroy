@@ -423,7 +423,7 @@ var _music_fade_tween: Tween
 var _crossfade_tween: Tween
 
 ## Plays an sfx sound
-func play_sfx(sound: AudioStream, volume: float = 1.0, pitch: float = 1.0) -> void:
+func play_sfx(sound: AudioStream, volume: float = 1.0, pitch: float = 1.0) -> AudioStreamPlayer:
 	if not sound or _sfx_muted:
 		return
 	
@@ -436,8 +436,9 @@ func play_sfx(sound: AudioStream, volume: float = 1.0, pitch: float = 1.0) -> vo
 	
 	# Auto cleanup
 	player.finished.connect(player.queue_free, CONNECT_ONE_SHOT)
+	return player
 
-func play_sfx_2d(sound: AudioStream, position: Vector2, volume: float = 1.0, pitch: float = 1.0, max_distance: float = 2000.0) -> void:
+func play_sfx_2d(sound: AudioStream, position: Vector2, volume: float = 1.0, pitch: float = 1.0, max_distance: float = 2000.0) -> AudioStreamPlayer2D:
 	if not sound or _sfx_muted:
 		return
 	
@@ -451,8 +452,9 @@ func play_sfx_2d(sound: AudioStream, position: Vector2, volume: float = 1.0, pit
 	player.play()
 	
 	player.finished.connect(player.queue_free, CONNECT_ONE_SHOT)
+	return player
 
-func play_sfx_3d(sound: AudioStream, position: Vector3, volume: float = 1.0, pitch: float = 1.0, max_distance: float = 2000.0) -> void:
+func play_sfx_3d(sound: AudioStream, position: Vector3, volume: float = 1.0, pitch: float = 1.0, max_distance: float = 2000.0) -> AudioStreamPlayer3D:
 	if not sound or _sfx_muted:
 		return
 	
@@ -466,9 +468,10 @@ func play_sfx_3d(sound: AudioStream, position: Vector3, volume: float = 1.0, pit
 	player.play()
 	
 	player.finished.connect(player.queue_free, CONNECT_ONE_SHOT)
+	return player
 
 ## Plays music
-func play_music(music: AudioStream, volume: float = 1.0, loop: bool = true, fade_in_duration: float = 0.0) -> void:
+func play_music(music: AudioStream, volume: float = 1.0, loop: bool = true, fade_in_duration: float = 0.0):
 	if(_music_player == null):
 		_music_player = AudioStreamPlayer.new()
 		add_child(_music_player)
@@ -502,6 +505,7 @@ func play_music(music: AudioStream, volume: float = 1.0, loop: bool = true, fade
 	
 	if loop:
 		_music_player.finished.connect(_on_music_finished, CONNECT_ONE_SHOT)
+	
 
 ## Crossfades from current music to new music over specified duration
 func crossfade_music(new_music: AudioStream, volume: float = 1.0, loop: bool = true, crossfade_duration: float = 1.0) -> void:

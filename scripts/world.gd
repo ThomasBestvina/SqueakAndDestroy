@@ -8,6 +8,7 @@ extends Node3D
 var transporting_back = false
 
 var begin_end: bool = false
+var end: bool = false
 
 @export var transport_speed: float = 1.0
 func _ready() -> void:
@@ -35,6 +36,8 @@ func add_points(points: int):
 func _process(_delta: float) -> void:
 	if($GameTimer.time_left < 3):
 		begin_end = true
+	
+	
 
 func _physics_process(delta: float) -> void:
 	# transport procedure
@@ -49,5 +52,5 @@ func _on_game_timer_timeout() -> void:
 	# We need to do some kind of procedure for transporting the hamster ball to the cage..
 	hamster_ball.freeze = true
 	transporting_back = true
-	
+	end = true
 	GlobalState.save_game()
