@@ -1,0 +1,73 @@
+[gd_resource type="Theme" format=3 uid="uid://b17mkexbpm2kn"]
+
+[ext_resource type="FontFile" uid="uid://c1sm0gdax14q2" path="res://assets/Style/apoca/Apoca.otf" id="1_8oq1c"]
+[ext_resource type="Texture2D" uid="uid://bo7pcogvf3oqe" path="res://assets/2D/grabber.png" id="2_fnnix"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtpc6"]
+bg_color = Color(0.16078432, 0.15686275, 0.19215687, 1)
+expand_margin_left = 1.0
+expand_margin_top = 3.0
+expand_margin_right = 1.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2utbw"]
+bg_color = Color(0.2, 0.24705882, 0.34509805, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.12156863, 0.23137255, 0.29411766, 1)
+expand_margin_left = 1.0
+expand_margin_top = 3.0
+expand_margin_right = 1.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8oq1c"]
+bg_color = Color(0.2901961, 0.47843137, 0.5882353, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.123342656, 0.2304048, 0.29228425, 1)
+expand_margin_left = 1.0
+expand_margin_top = 3.0
+expand_margin_right = 1.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16f8r"]
+bg_color = Color(0.1508, 0.18538001, 0.26, 1)
+expand_margin_left = 1.0
+expand_margin_top = 3.0
+expand_margin_right = 1.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnnix"]
+bg_color = Color(0.93333334, 0.5254902, 0.58431375, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t70xu"]
+bg_color = Color(0.2901961, 0.47843137, 0.5882353, 1)
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob4oq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmsmi"]
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_8oq1c")
+Button/styles/disabled = SubResource("StyleBoxFlat_xtpc6")
+Button/styles/focus = SubResource("StyleBoxFlat_2utbw")
+Button/styles/hover = SubResource("StyleBoxFlat_2utbw")
+Button/styles/normal = SubResource("StyleBoxFlat_8oq1c")
+Button/styles/pressed = SubResource("StyleBoxFlat_16f8r")
+HSlider/icons/grabber = ExtResource("2_fnnix")
+HSlider/icons/grabber_disabled = ExtResource("2_fnnix")
+HSlider/icons/grabber_highlight = ExtResource("2_fnnix")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_fnnix")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_fnnix")
+HSlider/styles/slider = SubResource("StyleBoxFlat_t70xu")
+RichTextLabel/constants/outline_size = 4
+RichTextLabel/fonts/bold_font = ExtResource("1_8oq1c")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_8oq1c")
+RichTextLabel/fonts/italics_font = ExtResource("1_8oq1c")
+RichTextLabel/fonts/mono_font = ExtResource("1_8oq1c")
+RichTextLabel/fonts/normal_font = ExtResource("1_8oq1c")
+RichTextLabel/styles/background = SubResource("StyleBoxFlat_ob4oq")
+RichTextLabel/styles/fill = SubResource("StyleBoxFlat_hmsmi")

@@ -3,15 +3,15 @@ extends Node
 var state: Dictionary = {
 	"currency": 0,
 	"timer": 30,
-	"speed": 3,
-	"jump": 2, #jump unlock and jump powerw
-	"weight": 0.0,
+	"speed": 5,
+	"jump": 5, #jump unlock and jump powerw
+	"weight": 2,
 	"multiplier": 1,
-	"hook": 1, #hook unlock and hook power
-	"hook_range": 3,
-	"boost": 1, #jetpack unlock and jetpack power
-	"boost_fuel": 3.5
-}
+	"hook": 5, #hook unlock and hook power
+	"hook_range": 4,
+	"boost": 5, #jetpack unlock and jetpack power
+	"boost_fuel": 3
+	}
 
 
 func save_game():

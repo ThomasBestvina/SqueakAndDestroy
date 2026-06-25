@@ -69,6 +69,8 @@ var roll_sound = preload("res://assets/Sound/ballrolling.wav")
 var current_boost_sound: AudioStreamPlayer3D = null
 var current_roll_sound: AudioStreamPlayer3D = null
 
+var can_use_hook = true
+
 func init() -> void:
 	StoatStash.register_input_tracking("jump")
 	hook_visual_pos = hook_origin.global_position
@@ -114,10 +116,14 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("hook") && GlobalState.state["hook"] > 0:
 		shoot_hook()
 	if Input.is_action_just_released("hook") && GlobalState.state["hook"] > 0:
+		if(hooked):
+			$Timer.start(1)
+			can_use_hook = false
+			if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
+				hook_retracting = true
 		hooked = false
 		hook_traveling = false
-		if(hook_visual_pos.distance_to(hook_origin.global_position) > 0.1):
-			hook_retracting = true
+
 
 	
 	update_rope_graphic(delta)
@@ -135,7 +141,7 @@ func _process(delta: float) -> void:
 		current_roll_sound.position = global_position
 
 func shoot_hook():
-	if(GlobalState.state["hook"] == 0 or get_parent().end): return
+	if(GlobalState.state["hook"] == 0 or get_parent().end or !can_use_hook): return
 	var space_state = get_world_3d().direct_space_state
 	var cam_node = $piv/SpringArm3D/CamPos
 	var ray_end = cam_node.global_position + (-cam_node.global_basis.z * GlobalState.state["hook_range"])
@@ -157,7 +163,7 @@ func shoot_hook():
 	StoatStash.play_sfx_3d(grapple_hook_throw_sound, global_position)
 
 func update_rope_graphic(delta: float):
-	hook_mesh.visible = hooked or hook_traveling or hook_retracting
+	hook_mesh.visible = (hooked or hook_traveling or hook_retracting) and can_use_hook
 	
 	if hook_traveling:
 		var dir = hook_point - hook_visual_pos
@@ -266,7 +272,7 @@ func _physics_process(delta: float) -> void:
 			return
 		
 		if distance > 0.1:
-			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 2 * mass)
+			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 3 * mass)
 
 	#jetpack
 	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") && boost_fuel > 0:
@@ -293,3 +299,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		if(normal.dot(Vector3.UP) > 0.8):
 			on_floor = true
 		i += 1
+
+func _on_timer_timeout() -> void:
+	can_use_hook = true

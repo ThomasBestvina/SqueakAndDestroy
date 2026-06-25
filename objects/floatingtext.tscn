@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ct5hj81p1fccs"]
+
+[ext_resource type="FontFile" uid="uid://c1sm0gdax14q2" path="res://assets/Style/apoca/Apoca.otf" id="1_bfkaa"]
+[ext_resource type="Script" uid="uid://dtfv8l43umw2n" path="res://scripts/floatingtext.gd" id="2_5ohr8"]
+
+[node name="Label3D" type="Label3D" unique_id=370873164]
+billboard = 1
+texture_filter = 0
+modulate = Color(0.33773106, 0.8321492, 0, 1)
+text = "100"
+font = ExtResource("1_bfkaa")
+font_size = 46
+script = ExtResource("2_5ohr8")

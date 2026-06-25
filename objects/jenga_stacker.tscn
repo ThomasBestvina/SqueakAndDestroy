@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cx0tavimay5nq"]
+
+[ext_resource type="Script" uid="uid://bm5lq51uaaak" path="res://scripts/jenga_stacker.gd" id="1_rpjl5"]
+
+[node name="JengaStacker" type="Marker3D" unique_id=1224145975]
+script = ExtResource("1_rpjl5")

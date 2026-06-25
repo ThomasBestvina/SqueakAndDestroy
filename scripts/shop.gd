@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return int(pow(GlobalState.state["speed"] - 1,8) * 15)
+			return int(pow(GlobalState.state["speed"],1.5) * 15) + 10
 		UpgradeType.TIME:
 			return int(pow(GlobalState.state["timer"]-29, 1.2))
 		UpgradeType.JUMP:

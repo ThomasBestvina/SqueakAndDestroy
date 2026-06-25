@@ -36,8 +36,14 @@ func add_points(points: int):
 func _process(_delta: float) -> void:
 	if($GameTimer.time_left < 3):
 		begin_end = true
-	
-	
+
+	var timer: Timer = $Hamsterball.get_node("Timer")
+	$UI/Gui/Crosshair/CrosshairProgressBar.value = clamp(1.0 - timer.time_left, 0.0, 1.0)
+
+	if($Hamsterball.hooked || $Hamsterball.hook_traveling):
+		$UI/Gui/Crosshair/CrosshairProgressBar.tint_progress = Color.FIREBRICK
+	else:
+		$UI/Gui/Crosshair/CrosshairProgressBar.tint_progress = Color.WHITE
 
 func _physics_process(delta: float) -> void:
 	# transport procedure
@@ -45,7 +51,7 @@ func _physics_process(delta: float) -> void:
 		hamster_ball.transform = hamster_ball.transform.interpolate_with(shop_position_node.transform, delta * transport_speed)
 		if(hamster_ball.position.distance_to(shop_position_node.position) <= 0.1):
 			$UI/Shop.show()
-			$UI/Gui.hide()
+			$UI/Gui/Timer.hide()
 			transporting_back = false
 
 func _on_game_timer_timeout() -> void:

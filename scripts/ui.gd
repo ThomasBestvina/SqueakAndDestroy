@@ -11,8 +11,8 @@ func _process(_delta: float) -> void:
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$Pause.visible = get_tree().paused
-	$Gui/Score.text = "Currency: " + str(GlobalState.state["currency"])
-	$Gui/Timer.text = str($"../GameTimer".time_left)
+	$Gui/Score.text = "Score: " + str(int(GlobalState.state["currency"]))
+	$Gui/Timer.text = str(int($"../GameTimer".time_left))
 	
 	if($Shop.visible):
 		get_tree().paused = false
