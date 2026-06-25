@@ -58,6 +58,17 @@ var hook_hit: bool = false
 @export_category("Jetpack")
 var boost_fuel = 1.0
 
+# sounds
+var jetpack_sound = preload("res://assets/Sound/jetpack.wav")
+var jump_sound = preload("res://assets/Sound/jump.wav")
+var grapple_hooked_sound = preload("res://assets/Sound/grapple_hooked.wav")
+var grapple_hook_throw_sound = preload("res://assets/Sound/grapple_hook_throw.wav")
+var hamsterball_slam_sound = preload("res://assets/Sound/hamsterball_slam.wav")
+var roll_sound = preload("res://assets/Sound/ballrolling.wav")
+
+var current_boost_sound: AudioStreamPlayer3D = null
+var current_roll_sound: AudioStreamPlayer3D = null
+
 func init() -> void:
 	StoatStash.register_input_tracking("jump")
 	hook_visual_pos = hook_origin.global_position
@@ -117,9 +128,14 @@ func _process(delta: float) -> void:
 		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = 0
 	if(game_end):
 		%glovedHands/Armature/Skeleton3D/FABRIK3D.influence = move_toward(%glovedHands/Armature/Skeleton3D/FABRIK3D.influence, 1.0, delta/2.4)
+		
+	if current_boost_sound != null:
+		current_boost_sound.position = global_position
+	if current_roll_sound != null:
+		current_roll_sound.position = global_position
 
 func shoot_hook():
-	if(GlobalState.state["hook"] == 0): return
+	if(GlobalState.state["hook"] == 0 or get_parent().end): return
 	var space_state = get_world_3d().direct_space_state
 	var cam_node = $piv/SpringArm3D/CamPos
 	var ray_end = cam_node.global_position + (-cam_node.global_basis.z * GlobalState.state["hook_range"])
@@ -138,6 +154,7 @@ func shoot_hook():
 		hook_hit = false
 	hook_visual_pos = hook_origin.global_position
 	hook_traveling = true
+	StoatStash.play_sfx_3d(grapple_hook_throw_sound, global_position)
 
 func update_rope_graphic(delta: float):
 	hook_mesh.visible = hooked or hook_traveling or hook_retracting
@@ -150,6 +167,7 @@ func update_rope_graphic(delta: float):
 			hook_visual_pos = hook_point
 			hook_traveling = false
 			if hook_hit:
+				StoatStash.play_sfx_3d(grapple_hooked_sound, hook_visual_pos)
 				hooked = true
 			else:
 				hook_retracting = true
@@ -192,6 +210,10 @@ func _physics_process(delta: float) -> void:
 	
 	if(on_floor):
 		apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass * 0.03)
+		if(angular_velocity.length() > 0.2 && current_roll_sound == null):
+			current_roll_sound = StoatStash.play_sfx_3d(roll_sound, global_position, 0.07, angular_velocity.length()/20)
+		elif(angular_velocity.length() > 0.2 && current_roll_sound != null):
+			current_roll_sound.pitch_scale = angular_velocity.length()/20
 		$hamster.rotation.x = 0
 		$hamster.rotation.z = 0
 		animation_player.play("2Walk")
@@ -204,6 +226,7 @@ func _physics_process(delta: float) -> void:
 		$hamster.rotation.y = lerp_angle($hamster.rotation.y, atan2(vec3.x, vec3.z), 0.15)
 	
 	if on_floor and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
+		StoatStash.play_sfx_3d(jump_sound, global_position)
 		apply_impulse(Vector3.UP * tap_jump * 1.8 * mass)
 		is_jumping = true
 		jump_hold_time = 0.0
@@ -246,11 +269,21 @@ func _physics_process(delta: float) -> void:
 			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 2 * mass)
 
 	#jetpack
-	
 	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") && boost_fuel > 0:
-		apply_central_force(Vector3.UP * (log(GlobalState.state["boost"]) * mass + 3))
+		$jetpack/GPUParticles3D.emitting = true
+		$jetpack/GPUParticles3D2.emitting = true
+		if(current_boost_sound == null):
+			current_boost_sound = StoatStash.play_sfx_3d(jetpack_sound, global_position)
+		var t = (GlobalState.state["boost"] - 1.0) / 9.0
+		var force = lerp(10.0, 14.0, sqrt(t))
+		apply_central_force(Vector3.UP * force * mass)
 		boost_fuel -= delta
 		boost_fuel = max(boost_fuel, 0.0)
+	if (Input.is_action_just_released("boost") or boost_fuel <= 0) && current_boost_sound != null:
+		current_boost_sound.stop()
+		current_boost_sound = null
+		$jetpack/GPUParticles3D.emitting = false
+		$jetpack/GPUParticles3D2.emitting = false
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var i := 0

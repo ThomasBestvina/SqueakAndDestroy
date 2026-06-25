@@ -14,6 +14,8 @@ class_name Shop extends Control
 #	"boost_fuel": 1.0
 #}
 
+var purchase_sound = preload("res://assets/Sound/shoppurchase.wav")
+var failed_purchase_sound = preload("res://assets/Sound/failedbuy.wav")
 
 enum UpgradeType {SPEED,TIME,JUMP,WEIGHT,MULTIPLIER,GRAPPLE,RANGE,BOOST,FUEL}
 
@@ -30,19 +32,27 @@ func init():
 	%RocketFuel/RichTextLabel.text = str(cost_calculator(UpgradeType.FUEL))
 
 func _process(_delta: float) -> void:
-	%RocketFuel.visible = GlobalState.state["boost"] > 0
-	%GrapplingRange.visible = GlobalState.state["hook"] > 0
 	$RichTextLabel.text = str(GlobalState.state["currency"])
 	%Jump/JumpUp.text = "Upgrade Jump" if GlobalState.state["jump"] > 0 else "Unlock Jump"
 	
 	%GrapplingHook/GrappleUp.text = "Upgrade Grapple Power" if GlobalState.state["hook"] > 0 else "Unlock Grappling Hook"
 	
 	%RocketBoost/RocketUp.text = "Upgrade Jetpack Power" if GlobalState.state["boost"] > 0 else "Unlock Jetpack"
+	
+	%Speed.visible = GlobalState.state["speed"] < get_max(UpgradeType.SPEED)-0.1
+	%Time.visible = GlobalState.state["timer"] < get_max(UpgradeType.TIME)-0.1
+	%Jump.visible = GlobalState.state["jump"] < get_max(UpgradeType.JUMP)-0.1
+	%Weight.visible = GlobalState.state["weight"] < get_max(UpgradeType.WEIGHT)-0.1
+	%Multiplier.visible = GlobalState.state["multiplier"] < get_max(UpgradeType.MULTIPLIER)-0.1
+	%GrapplingHook.visible = GlobalState.state["hook"] < get_max(UpgradeType.GRAPPLE)-0.1
+	%GrapplingRange.visible = GlobalState.state["hook"] > 0 and GlobalState.state["hook_range"] < get_max(UpgradeType.RANGE)-0.1
+	%RocketBoost.visible = GlobalState.state["boost"] < get_max(UpgradeType.BOOST)-0.1
+	%RocketFuel.visible = GlobalState.state["boost"] > 0 and GlobalState.state["boost_fuel"] < get_max(UpgradeType.FUEL)-0.1
 
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return int(pow(5, GlobalState.state["speed"] - 1) * 15)
+			return int(pow(GlobalState.state["speed"] - 1,8) * 15)
 		UpgradeType.TIME:
 			return int(pow(GlobalState.state["timer"]-29, 1.2))
 		UpgradeType.JUMP:
@@ -50,11 +60,11 @@ func cost_calculator(type: UpgradeType) -> int:
 		UpgradeType.WEIGHT:
 			return int(pow(GlobalState.state["weight"] * 3 + 1, 2) * 5)
 		UpgradeType.MULTIPLIER:
-			return int(pow(3.5, GlobalState.state["multiplier"]) * 10)
+			return int(pow(3.5, GlobalState.state["multiplier"]) * 7.5)
 		UpgradeType.GRAPPLE:
 			return int(pow(GlobalState.state["hook"], 1.8) * 5 + 50)
 		UpgradeType.BOOST:
-			return int(pow(1.2, GlobalState.state["boost"]) * 10 + 50)
+			return int(pow(2.3, GlobalState.state["boost"]) * 10 + 50)
 		UpgradeType.RANGE:
 			return int(pow(GlobalState.state["hook_range"], 1.5) + 12)
 		UpgradeType.FUEL:
@@ -62,6 +72,29 @@ func cost_calculator(type: UpgradeType) -> int:
 		_:
 			return 0
 
+
+func get_max(type: UpgradeType) -> float:
+	match type:
+		UpgradeType.SPEED:
+			return 8
+		UpgradeType.TIME:
+			return INF
+		UpgradeType.JUMP:
+			return 10
+		UpgradeType.WEIGHT:
+			return INF
+		UpgradeType.MULTIPLIER:
+			return INF
+		UpgradeType.GRAPPLE:
+			return 10
+		UpgradeType.BOOST:
+			return 10
+		UpgradeType.RANGE:
+			return 3
+		UpgradeType.FUEL:
+			return 4
+		_:
+			return 0
 func upgrade_number(type: UpgradeType): # no return promise, as we may return a float or int
 	match type:
 		UpgradeType.SPEED:
@@ -143,7 +176,9 @@ func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 		GlobalState.state[type_to_string(thing)] += upgrade_number(thing)
 		textEdit.text = str(cost_calculator(thing))
 		GlobalState.save_game()
+		StoatStash.play_sfx(purchase_sound)
 		return true
+	StoatStash.play_sfx(failed_purchase_sound)
 	return false
 ''
 
