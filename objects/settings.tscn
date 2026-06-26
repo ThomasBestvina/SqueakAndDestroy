@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://7lwih7jxid7b"]
 
 [ext_resource type="Script" uid="uid://ei8s4r518rsg" path="res://scripts/settings.gd" id="1_uxtcc"]
+[ext_resource type="Theme" uid="uid://b17mkexbpm2kn" path="res://assets/Style/theme.tres" id="2_icbth"]
 
 [node name="Settings" type="Control" unique_id=288863286]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1052.0
+offset_bottom = -538.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uxtcc")
@@ -19,24 +22,35 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
+theme = ExtResource("2_icbth")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=571342189]
 custom_minimum_size = Vector2(73.395, 22.43)
 layout_mode = 2
+theme = ExtResource("2_icbth")
 text = "SFX"
+horizontal_alignment = 1
 
 [node name="SfxSlider" type="HSlider" parent="VBoxContainer" unique_id=1396747859]
+custom_minimum_size = Vector2(99.11, 0)
 layout_mode = 2
+theme = ExtResource("2_icbth")
 max_value = 1.0
+step = 0.1
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer" unique_id=561792801]
 custom_minimum_size = Vector2(73.395, 22.43)
 layout_mode = 2
+theme = ExtResource("2_icbth")
 text = "Music"
+horizontal_alignment = 1
 
 [node name="MusicSlider" type="HSlider" parent="VBoxContainer" unique_id=287012372]
 layout_mode = 2
+theme = ExtResource("2_icbth")
 max_value = 1.0
+step = 0.1
+tick_count = 10
 
 [connection signal="value_changed" from="VBoxContainer/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]

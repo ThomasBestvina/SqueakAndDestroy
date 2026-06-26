@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ktavs42vcjf1"
-path.s3tc="res://.godot/imported/windAnimation.png-24e4d77742b1119a471ca222bb3cff21.s3tc.ctex"
+uid="uid://dqxi34b648357"
+path.s3tc="res://.godot/imported/dibbitdungeon.png-1f12d5f304a4083acb278decc02f7b81.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2D/animations/windAnimation.png"
-dest_files=["res://.godot/imported/windAnimation.png-24e4d77742b1119a471ca222bb3cff21.s3tc.ctex"]
+source_file="res://assets/Posters/dibbitdungeon.png"
+dest_files=["res://.godot/imported/dibbitdungeon.png-1f12d5f304a4083acb278decc02f7b81.s3tc.ctex"]
 
 [params]
 

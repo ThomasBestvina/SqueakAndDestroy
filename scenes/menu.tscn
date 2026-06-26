@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvtd3jih7bgrv" path="res://scripts/menu.gd" id="1_yqeox"]
 [ext_resource type="Theme" uid="uid://b17mkexbpm2kn" path="res://assets/Style/theme.tres" id="2_vjb58"]
+[ext_resource type="PackedScene" uid="uid://7lwih7jxid7b" path="res://objects/settings.tscn" id="3_con2f"]
 
 [sub_resource type="Theme" id="Theme_jvqdq"]
 VBoxContainer/constants/separation = 10
@@ -42,13 +43,25 @@ text = "Continue"
 custom_minimum_size = Vector2(207.45, 49.465)
 layout_mode = 2
 theme = ExtResource("2_vjb58")
-text = "Options"
+text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=1869765487]
 custom_minimum_size = Vector2(207.45, 49.465)
 layout_mode = 2
 theme = ExtResource("2_vjb58")
 text = "Quit"
+
+[node name="Settings" parent="." unique_id=288863286 instance=ExtResource("3_con2f")]
+custom_minimum_size = Vector2(77.325, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -77.325
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
 
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]

@@ -38,7 +38,7 @@ func body_collision(body: Node):
 		var reduced_mass = (mass * body.mass) / (mass + body.mass)
 		var impulse_approx = relative_velocity * reduced_mass
 		if(cur_obj_slam == null):
-			cur_obj_slam = StoatStash.play_sfx_3d(objective_slam, global_position, 0.05)
+			cur_obj_slam = StoatStash.play_sfx_3d(objective_slam, global_position, 0.025)
 		if impulse_approx >= min_force and spawn_time >= 3 and force_hit_points_award:
 			score()
 
@@ -48,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 		score()
 
 func score():
-	StoatStash.play_sfx_3d(point_awarded, global_position, 0.05)
+	StoatStash.play_sfx_3d(point_awarded, global_position, 0.015)
 	already_scored = true
 	points_scored.emit(points_given)
 	var ft = floattext.instantiate()

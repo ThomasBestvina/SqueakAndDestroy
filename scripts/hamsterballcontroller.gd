@@ -240,7 +240,7 @@ func _physics_process(delta: float) -> void:
 	if is_jumping and Input.is_action_pressed("jump") and jump_hold_time < MAX_HOLD_TIME:
 		jump_hold_time += delta
 		var t = jump_hold_time / MAX_HOLD_TIME
-		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 1.8 * (1.0 - sqrt(t)) * mass)
+		apply_central_force(Vector3.UP * GlobalState.state["jump"] * 3.5 * (1.0 - sqrt(t)) * mass)
 
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false

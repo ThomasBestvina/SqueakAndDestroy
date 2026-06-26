@@ -37,6 +37,8 @@ expand_margin_top = 3.0
 expand_margin_right = 1.0
 expand_margin_bottom = 3.0
 
+[sub_resource type="ImageTexture" id="ImageTexture_1st1g"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnnix"]
 bg_color = Color(0.93333334, 0.5254902, 0.58431375, 1)
 
@@ -44,6 +46,9 @@ bg_color = Color(0.93333334, 0.5254902, 0.58431375, 1)
 bg_color = Color(0.2901961, 0.47843137, 0.5882353, 1)
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8v5c"]
+bg_color = Color(0.117740005, 0.1148, 0.14, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob4oq"]
 
@@ -60,9 +65,11 @@ Button/styles/pressed = SubResource("StyleBoxFlat_16f8r")
 HSlider/icons/grabber = ExtResource("2_fnnix")
 HSlider/icons/grabber_disabled = ExtResource("2_fnnix")
 HSlider/icons/grabber_highlight = ExtResource("2_fnnix")
+HSlider/icons/tick = SubResource("ImageTexture_1st1g")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_fnnix")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_fnnix")
 HSlider/styles/slider = SubResource("StyleBoxFlat_t70xu")
+Panel/styles/panel = SubResource("StyleBoxFlat_y8v5c")
 RichTextLabel/constants/outline_size = 4
 RichTextLabel/fonts/bold_font = ExtResource("1_8oq1c")
 RichTextLabel/fonts/bold_italics_font = ExtResource("1_8oq1c")

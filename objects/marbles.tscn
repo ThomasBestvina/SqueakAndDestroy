@@ -79,32 +79,6 @@ points = PackedVector3Array(-0.031903267, -0.055239394, -0.014767122, -0.0090483
 
 [node name="Marbles" type="Node3D" unique_id=1249284733]
 
-[node name="Marble4" type="RigidBody3D" parent="." unique_id=725192594]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6314608, 0.13992408, 1.3207463)
-mass = 0.02
-script = ExtResource("1_pseyd")
-points_given = 2
-min_force = 0.1
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble4" unique_id=662488797]
-mesh = SubResource("SphereMesh_7vitk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble4" unique_id=1924410654]
-shape = SubResource("SphereShape3D_7vitk")
-
-[node name="Marble" type="RigidBody3D" parent="." unique_id=938436402]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5839703, 0.13992408, 1.217085)
-mass = 0.02
-script = ExtResource("1_pseyd")
-points_given = 2
-min_force = 0.1
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble" unique_id=369401281]
-mesh = SubResource("SphereMesh_7vitk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble" unique_id=1912419565]
-shape = SubResource("SphereShape3D_7vitk")
-
 [node name="Marble6" type="RigidBody3D" parent="." unique_id=1255854604]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5839703, 0.22295752, 1.217085)
 mass = 0.02
@@ -441,32 +415,6 @@ min_force = 0.1
 mesh = SubResource("SphereMesh_7vitk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Marble30" unique_id=55387323]
-shape = SubResource("SphereShape3D_7vitk")
-
-[node name="Marble2" type="RigidBody3D" parent="." unique_id=64206724]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5689666, 0.13992408, 1.2806492)
-mass = 0.02
-script = ExtResource("1_pseyd")
-points_given = 2
-min_force = 0.1
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble2" unique_id=31856714]
-mesh = SubResource("SphereMesh_7vitk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble2" unique_id=1390695492]
-shape = SubResource("SphereShape3D_7vitk")
-
-[node name="Marble3" type="RigidBody3D" parent="." unique_id=102194816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6475092, 0.13992408, 1.2533807)
-mass = 0.02
-script = ExtResource("1_pseyd")
-points_given = 2
-min_force = 0.1
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Marble3" unique_id=1302739456]
-mesh = SubResource("SphereMesh_7vitk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Marble3" unique_id=764133509]
 shape = SubResource("SphereShape3D_7vitk")
 
 [node name="Cup" type="RigidBody3D" parent="." unique_id=840317516]
