@@ -21,6 +21,9 @@ func _ready() -> void:
 	
 	$GameTimer.start(GlobalState.state["timer"])
 	$Hamsterball.init()
+	
+	$UI/Gui/RocketFuel.visible = GlobalState.state["boost"] > 0
+	
 
 func connect_objective_signals(start: Node):
 	for i in start.get_children():
@@ -44,6 +47,9 @@ func _process(_delta: float) -> void:
 		$UI/Gui/Crosshair/CrosshairProgressBar.tint_progress = Color.FIREBRICK
 	else:
 		$UI/Gui/Crosshair/CrosshairProgressBar.tint_progress = Color.WHITE
+	
+	$UI/Gui/RocketFuel/TextureProgressBar.value = 25 + (($Hamsterball.boost_fuel/GlobalState.state["boost_fuel"]*100 ) / 100) * (82-25)
+	
 
 func _physics_process(delta: float) -> void:
 	# transport procedure

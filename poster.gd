@@ -23,5 +23,4 @@ func area_hit(body: Node):
 		var impulse_approx = relative_velocity * reduced_mass
 		if impulse_approx >= min_force and spawn_time >= 3:
 			freeze = false
-			already_scored = true
-			points_scored.emit(points_given)
+			score()
