@@ -4,6 +4,8 @@ var scene = load("res://scenes/menu.tscn")
 
 var old_mouse_mode: int = 2
 
+var sound = preload("res://assets/Sound/uiselect.wav")
+
 func _process(_delta: float) -> void:
 
 	#if(Input.is_action_just_pressed("pause") and !$Shop.visible):
@@ -22,7 +24,8 @@ func _process(_delta: float) -> void:
 		get_tree().paused = false
 	$Gui/Crosshair.visible = GlobalState.state["hook"] > 0
 	
-	if(Input.mouse_mode == 0 && old_mouse_mode == 2):
+	if(Input.mouse_mode == 0 && old_mouse_mode == 2 && !$Shop.visible):
+		print("Hi")
 		get_tree().paused = true
 	
 	old_mouse_mode = Input.mouse_mode
@@ -39,11 +42,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	StoatStash.play_sfx(sound)
 
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_packed(scene)
+	StoatStash.play_sfx(sound)
 
 #func _notification(what):
 #	if what == NOTIFICATION_DISABLED and OS.get_name() == "Web":

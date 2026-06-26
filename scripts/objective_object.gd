@@ -7,6 +7,7 @@ var already_scored = false
 @export var points_given: int = 50
 @export var min_force: float = 0.25
 @export var force_hit_points_award: bool = false
+@export var needs_timer: bool = true
 var initial_rotation: Vector3
 
 var spawn_time: float = 0.0
@@ -20,6 +21,8 @@ var objective_slam = load("res://assets/Sound/objective_slam.wav")
 
 var cur_obj_slam = null
 
+var can_score: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	contact_monitor = true
@@ -29,15 +32,16 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	spawn_time += delta
-	if(spawn_time < 3):
+	if(spawn_time < 5):
 		initial_rotation = rotation
 
 func body_collision(body: Node):
-	if(body is RigidBody3D and not already_scored and spawn_time > 3):
+	if body is Hamsterbody3D:
+		can_score = true
+	if(body is RigidBody3D and not already_scored and (spawn_time > 5 or can_score or !needs_timer)):
 		var relative_velocity = (linear_velocity - body.linear_velocity).length()
 		var reduced_mass = (mass * body.mass) / (mass + body.mass)
 		var impulse_approx = relative_velocity * reduced_mass
-		print(impulse_approx)
 		if(cur_obj_slam == null):
 			cur_obj_slam = StoatStash.play_sfx_3d(objective_slam, global_position, 0.025)
 		if impulse_approx >= min_force and spawn_time >= 3 and force_hit_points_award:
@@ -45,15 +49,15 @@ func body_collision(body: Node):
 
 func _physics_process(_delta: float) -> void:
 	var tilt = rotation.distance_to(initial_rotation)
-	if tilt > deg_to_rad(45) and not already_scored and spawn_time > 3:
+	if tilt > deg_to_rad(45) and not already_scored and (spawn_time > 5 or can_score or !needs_timer):
 		score()
 
 func score():
+	if(already_scored): return
 	StoatStash.play_sfx_3d(point_awarded, global_position, 0.015)
 	already_scored = true
 	points_scored.emit(points_given)
 	var ft = floattext.instantiate()
-	ft.text = str(points_given*GlobalState.state["multiplier"])
 	get_parent().get_parent().add_child(ft)
 	ft.global_position = global_position
-	ft.text = str(points_given)
+	ft.text = str(int(points_given*GlobalState.state["multiplier"]))

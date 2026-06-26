@@ -4,6 +4,8 @@ extends Control
 
 var music = preload("res://assets/music/old medieval.ogg")
 
+var sound = preload("res://assets/Sound/uiselect.wav")
+
 func _ready() -> void:
 	StoatStash.mute_sfx(false)
 	if(!StoatStash.is_music_playing()):
@@ -19,6 +21,8 @@ func _process(_delta: float) -> void:
 
 func _on_new_game_pressed() -> void:
 	StoatStash.delete_save("hamsterballawesomesave.dat")
+	GlobalState.state = GlobalState.default_state
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
@@ -28,11 +32,7 @@ func _on_continue_pressed() -> void:
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
-
-
-func _on_options_pressed() -> void:
-	pass # Replace with function body.
-
+	StoatStash.play_sfx(sound)
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

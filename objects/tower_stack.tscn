@@ -1,7 +1,61 @@
-[gd_scene format=3 uid="uid://dewykunhyyxbx"]
+[gd_scene format=4 uid="uid://dewykunhyyxbx"]
 
+[ext_resource type="Script" uid="uid://dmmkjtq7m4768" path="res://scripts/tower_stack.gd" id="1_rjhgp"]
 [ext_resource type="Script" uid="uid://eb8g5ldd2kol" path="res://scripts/objective_object.gd" id="1_u2s8d"]
+[ext_resource type="Texture2D" uid="uid://l2vn6a0ivuae" path="res://assets/3D/map/plasticRingBase_woodTexture3.png" id="3_5uas5"]
 
-[node name="TowerStack" type="RigidBody3D" unique_id=1307632785]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecjxw"]
+resource_name = "Material"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("3_5uas5")
+texture_filter = 2
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_odjg1"]
+_surfaces = [{
+"aabb": AABB(-0.2906496, -0.032742888, -0.2906496, 0.5812992, 0.065485775, 0.5812992),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cil7x"]
+resource_name = "plasticRingBase_Cube"
+_surfaces = [{
+"aabb": AABB(-0.2906496, -0.032742888, -0.2906496, 0.5812992, 0.065485775, 0.5812992),
+"attribute_data": PackedByteArray("7H////W/xcz1v///7H/FzOx/xcz1v4yZ9b/FzOx/jJnsf4yZ9b9TZvW/jJnsf1Nm7H9TZvW/GjP1v1Nm7H8aM+I/jJnsf1Nm7H+MmeI/U2b1v4yZ//9TZv//jJn1v1Nm"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_ecjxw"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(4.0070477, 5.009397, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_odjg1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nuoot"]
+size = Vector3(0.5812992, 0.065485775, 0.5812992)
+
+[node name="TowerStack" type="Node3D" unique_id=1307784745]
+script = ExtResource("1_rjhgp")
+
+[node name="plasticRingBase" type="RigidBody3D" parent="." unique_id=2057583753]
 script = ExtResource("1_u2s8d")
 metadata/_custom_type_script = "uid://eb8g5ldd2kol"
+
+[node name="Cube" type="MeshInstance3D" parent="plasticRingBase" unique_id=2100388389]
+mesh = SubResource("ArrayMesh_cil7x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plasticRingBase" unique_id=1806018890]
+shape = SubResource("BoxShape3D_nuoot")

@@ -23,7 +23,6 @@ func init():
 	%Speed/RichTextLabel.text = str(cost_calculator(UpgradeType.SPEED))
 	%Time/RichTextLabel.text = str(cost_calculator(UpgradeType.TIME))
 	%Jump/RichTextLabel.text = str(cost_calculator(UpgradeType.JUMP))
-	
 	%Weight/RichTextLabel.text = str(cost_calculator(UpgradeType.WEIGHT))
 	%Multiplier/RichTextLabel.text = str(cost_calculator(UpgradeType.MULTIPLIER))
 	%GrapplingHook/RichTextLabel.text = str(cost_calculator(UpgradeType.GRAPPLE))
@@ -32,7 +31,6 @@ func init():
 	%RocketFuel/RichTextLabel.text = str(cost_calculator(UpgradeType.FUEL))
 
 func _process(_delta: float) -> void:
-	$RichTextLabel.text = str(GlobalState.state["currency"])
 	%Jump/JumpUp.text = "Upgrade Jump" if GlobalState.state["jump"] > 0 else "Unlock Jump"
 	
 	%GrapplingHook/GrappleUp.text = "Upgrade Grapple Power" if GlobalState.state["hook"] > 0 else "Unlock Grappling Hook"
@@ -73,7 +71,7 @@ func cost_calculator(type: UpgradeType) -> int:
 		UpgradeType.SPEED:
 			return int(pow(GlobalState.state["speed"],2.2) * 15) + 10
 		UpgradeType.TIME:
-			return int(pow(GlobalState.state["timer"]-13, 1.8))
+			return int(pow(GlobalState.state["timer"]-14, 1.3))
 		UpgradeType.JUMP:
 			return int(pow(GlobalState.state["jump"] + 1, 2.5) * 8)
 		UpgradeType.WEIGHT:
@@ -203,6 +201,7 @@ func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 
 func _on_button_pressed() -> void:
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 
 
