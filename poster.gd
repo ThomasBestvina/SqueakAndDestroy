@@ -13,7 +13,7 @@ func _ready() -> void:
 	area3d.add_child(newCol)
 	StoatStash.safe_signal_connect(area3d.body_entered, area_hit)
 
-func body_collision(body: Node):
+func body_collision(_body: Node):
 	pass
 
 func area_hit(body: Node):
