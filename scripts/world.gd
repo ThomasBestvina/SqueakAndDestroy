@@ -12,7 +12,7 @@ var end: bool = false
 
 @export var transport_speed: float = 1.0
 func _ready() -> void:
-	get_tree().paused
+	get_tree().paused = false
 	GlobalState.load_game() # We want to do this every time the scene loads because it is assumed all progress gets saved as soon as there is a change, thus what is on the disk is correct
 	$UI/Shop.hide()
 	$UI/Shop.init()
