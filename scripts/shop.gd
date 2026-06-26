@@ -202,7 +202,8 @@ func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 ''
 
 func _on_button_pressed() -> void:
-	get_tree().reload_current_scene()
+	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
+	#get_tree().reload_current_scene()
 
 
 func _on_fuel_up_pressed() -> void:

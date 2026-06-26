@@ -37,6 +37,7 @@ func body_collision(body: Node):
 		var relative_velocity = (linear_velocity - body.linear_velocity).length()
 		var reduced_mass = (mass * body.mass) / (mass + body.mass)
 		var impulse_approx = relative_velocity * reduced_mass
+		print(impulse_approx)
 		if(cur_obj_slam == null):
 			cur_obj_slam = StoatStash.play_sfx_3d(objective_slam, global_position, 0.025)
 		if impulse_approx >= min_force and spawn_time >= 3 and force_hit_points_award:

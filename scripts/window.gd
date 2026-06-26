@@ -1,16 +1,10 @@
-extends ObjectiveObject
+extends Area3D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	super._ready()
-	freeze = true
 
-func score():
-	StoatStash.play_sfx_3d(point_awarded, global_position, 0.015)
-	already_scored = true
-	points_scored.emit(points_given)
-	var ft = floattext.instantiate()
-	get_parent().get_parent().add_child(ft)
-	ft.global_position = global_position
-	ft.text = str(points_given)
+
+func _on_body_entered(body: Node3D) -> void:
+	if(body is Hamsterbody3D && body.linear_velocity.length()*body.mass > 6.2): 
+		StoatStash.change_scene("res://scenes/win_screen.scn")
+	elif(body is Hamsterbody3D):
+		StoatStash.play_sfx(load("res://assets/Sound/harder.wav"))

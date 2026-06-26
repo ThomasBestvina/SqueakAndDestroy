@@ -2,10 +2,10 @@ extends Node
 
 var state: Dictionary = {
 	"currency": 0,
-	"timer": 30,
+	"timer": 10,
 	"speed": 5,
 	"jump": 5, #jump unlock and jump powerw
-	"weight": 2,
+	"weight": 3,
 	"multiplier": 1,
 	"hook": 5, #hook unlock and hook power
 	"hook_range": 4,
