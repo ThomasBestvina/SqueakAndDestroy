@@ -53,6 +53,7 @@ func score():
 	already_scored = true
 	points_scored.emit(points_given)
 	var ft = floattext.instantiate()
+	ft.text = str(points_given*GlobalState.state["multiplier"])
 	get_parent().get_parent().add_child(ft)
 	ft.global_position = global_position
 	ft.text = str(points_given)

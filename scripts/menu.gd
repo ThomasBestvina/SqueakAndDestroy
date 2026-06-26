@@ -19,12 +19,14 @@ func _process(_delta: float) -> void:
 
 func _on_new_game_pressed() -> void:
 	StoatStash.delete_save("hamsterballawesomesave.dat")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
 
 
 func _on_continue_pressed() -> void:
 	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
 
 

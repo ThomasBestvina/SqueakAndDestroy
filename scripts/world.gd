@@ -12,7 +12,7 @@ var end: bool = false
 
 @export var transport_speed: float = 1.0
 func _ready() -> void:
-	get_tree().paused = false
+	get_tree().paused
 	GlobalState.load_game() # We want to do this every time the scene loads because it is assumed all progress gets saved as soon as there is a change, thus what is on the disk is correct
 	$UI/Shop.hide()
 	$UI/Shop.init()
@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	$UI/Gui/RocketFuel.visible = GlobalState.state["boost"] > 0
 	
+
 
 func connect_objective_signals(start: Node):
 	for i in start.get_children():
@@ -58,6 +59,7 @@ func _physics_process(delta: float) -> void:
 		hamster_ball.transform = hamster_ball.transform.interpolate_with(shop_position_node.transform, delta * transport_speed)
 		if(hamster_ball.position.distance_to(shop_position_node.position) <= 0.1):
 			$UI/Shop.show()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			$UI/Gui/Timer.hide()
 			transporting_back = false
 

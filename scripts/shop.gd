@@ -73,7 +73,7 @@ func cost_calculator(type: UpgradeType) -> int:
 		UpgradeType.SPEED:
 			return int(pow(GlobalState.state["speed"],2.2) * 15) + 10
 		UpgradeType.TIME:
-			return int(pow(GlobalState.state["timer"]-29, 1.8))
+			return int(pow(GlobalState.state["timer"]-13, 1.8))
 		UpgradeType.JUMP:
 			return int(pow(GlobalState.state["jump"] + 1, 2.5) * 8)
 		UpgradeType.WEIGHT:
@@ -203,7 +203,7 @@ func buy(thing: UpgradeType, textEdit: RichTextLabel) -> bool:
 
 func _on_button_pressed() -> void:
 	StoatStash.change_scene_with_simple_transition("res://scenes/world.scn")
-	#get_tree().reload_current_scene()
+	get_tree().paused = false
 
 
 func _on_fuel_up_pressed() -> void:
