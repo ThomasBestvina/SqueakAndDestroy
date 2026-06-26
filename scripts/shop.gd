@@ -39,36 +39,55 @@ func _process(_delta: float) -> void:
 	
 	%RocketBoost/RocketUp.text = "Upgrade Jetpack Power" if GlobalState.state["boost"] > 0 else "Unlock Jetpack"
 	
-	%Speed.visible = GlobalState.state["speed"] < get_max(UpgradeType.SPEED)-0.1
-	%Time.visible = GlobalState.state["timer"] < get_max(UpgradeType.TIME)-0.1
-	%Jump.visible = GlobalState.state["jump"] < get_max(UpgradeType.JUMP)-0.1
-	%Weight.visible = GlobalState.state["weight"] < get_max(UpgradeType.WEIGHT)-0.1
-	%Multiplier.visible = GlobalState.state["multiplier"] < get_max(UpgradeType.MULTIPLIER)-0.1
-	%GrapplingHook.visible = GlobalState.state["hook"] < get_max(UpgradeType.GRAPPLE)-0.1
-	%GrapplingRange.visible = GlobalState.state["hook"] > 0 and GlobalState.state["hook_range"] < get_max(UpgradeType.RANGE)-0.1
-	%RocketBoost.visible = GlobalState.state["boost"] < get_max(UpgradeType.BOOST)-0.1
-	%RocketFuel.visible = GlobalState.state["boost"] > 0 and GlobalState.state["boost_fuel"] < get_max(UpgradeType.FUEL)-0.1
+	%Speed/SpeedUp.disabled = GlobalState.state["speed"] >= get_max(UpgradeType.SPEED) - 0.1
+	if %Speed/SpeedUp.disabled: %Speed/RichTextLabel.text = "MAX"
+
+	%Time/TimeUp.disabled = GlobalState.state["timer"] >= get_max(UpgradeType.TIME) - 0.1
+	if %Time/TimeUp.disabled: %Time/RichTextLabel.text = "MAX"
+
+	%Jump/JumpUp.disabled = GlobalState.state["jump"] >= get_max(UpgradeType.JUMP) - 0.1
+	if %Jump/JumpUp.disabled: %Jump/RichTextLabel.text = "MAX"
+
+	%Weight/WeightUp.disabled = GlobalState.state["weight"] >= get_max(UpgradeType.WEIGHT) - 0.1
+	if %Weight/WeightUp.disabled: %Weight/RichTextLabel.text = "MAX"
+
+	%Multiplier/MultiplierUp.disabled = GlobalState.state["multiplier"] >= get_max(UpgradeType.MULTIPLIER) - 0.1
+	if %Multiplier/MultiplierUp.disabled: %Multiplier/RichTextLabel.text = "MAX"
+
+	%GrapplingHook/GrappleUp.disabled = GlobalState.state["hook"] >= get_max(UpgradeType.GRAPPLE) - 0.1
+	if %GrapplingHook/GrappleUp.disabled: %GrapplingHook/RichTextLabel.text = "MAX"
+
+	%GrapplingRange.visible = GlobalState.state["hook"] > 0
+	%GrapplingRange/RangeUp.disabled = GlobalState.state["hook_range"] >= get_max(UpgradeType.RANGE) - 0.1
+	if %GrapplingRange/RangeUp.disabled: %GrapplingRange/RichTextLabel.text = "MAX"
+
+	%RocketBoost/RocketUp.disabled = GlobalState.state["boost"] >= get_max(UpgradeType.BOOST) - 0.1
+	if %RocketBoost/RocketUp.disabled: %RocketBoost/RichTextLabel.text = "MAX"
+
+	%RocketFuel.visible = GlobalState.state["boost"] > 0
+	%RocketFuel/FuelUp.disabled = GlobalState.state["boost_fuel"] >= get_max(UpgradeType.FUEL) - 0.1
+	if %RocketFuel/FuelUp.disabled: %RocketFuel/RichTextLabel.text = "MAX"
 
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return int(pow(GlobalState.state["speed"],1.5) * 15) + 10
+			return int(pow(GlobalState.state["speed"],2.2) * 15) + 10
 		UpgradeType.TIME:
-			return int(pow(GlobalState.state["timer"]-29, 1.2))
+			return int(pow(GlobalState.state["timer"]-29, 1.8))
 		UpgradeType.JUMP:
-			return int(pow(GlobalState.state["jump"] + 1, 2) * 8)
+			return int(pow(GlobalState.state["jump"] + 1, 2.5) * 8)
 		UpgradeType.WEIGHT:
-			return int(pow(GlobalState.state["weight"] * 3 + 1, 2) * 5)
+			return int(pow(GlobalState.state["weight"] * 3 + 1, 2.8) * 5)
 		UpgradeType.MULTIPLIER:
-			return int(pow(3.5, GlobalState.state["multiplier"]) * 7.5)
+			return int(pow(3.5, GlobalState.state["multiplier"]*1.2) * 7.5)
 		UpgradeType.GRAPPLE:
-			return int(pow(GlobalState.state["hook"], 1.8) * 5 + 50)
+			return int(pow(GlobalState.state["hook"], 2.2) * 5 + 50)
 		UpgradeType.BOOST:
 			return int(pow(2.3, GlobalState.state["boost"]) * 10 + 50)
 		UpgradeType.RANGE:
-			return int(pow(GlobalState.state["hook_range"], 1.5) + 12)
+			return int(pow(GlobalState.state["hook_range"], 1.8) + 12)
 		UpgradeType.FUEL:
-			return int(pow(GlobalState.state["boost_fuel"] * 2 + 1, 1.9))
+			return int(pow(GlobalState.state["boost_fuel"] * 4 + 1, 2.4))
 		_:
 			return 0
 
@@ -90,7 +109,7 @@ func get_max(type: UpgradeType) -> float:
 		UpgradeType.BOOST:
 			return 10
 		UpgradeType.RANGE:
-			return 3
+			return 5
 		UpgradeType.FUEL:
 			return 4
 		_:

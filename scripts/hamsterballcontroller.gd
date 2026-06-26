@@ -123,8 +123,8 @@ func _process(delta: float) -> void:
 				hook_retracting = true
 		hooked = false
 		hook_traveling = false
-
-
+	if get_parent().end:
+		$CollisionShape3D.disabled = true
 	
 	update_rope_graphic(delta)
 	
@@ -217,7 +217,7 @@ func _physics_process(delta: float) -> void:
 	if(on_floor):
 		apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass * 0.03)
 		if(angular_velocity.length() > 0.2 && current_roll_sound == null):
-			current_roll_sound = StoatStash.play_sfx_3d(roll_sound, global_position, 0.07, angular_velocity.length()/20)
+			current_roll_sound = StoatStash.play_sfx_3d(roll_sound, global_position, 0.2, angular_velocity.length()/20)
 		elif(angular_velocity.length() > 0.2 && current_roll_sound != null):
 			current_roll_sound.pitch_scale = angular_velocity.length()/20
 		$hamster.rotation.x = 0

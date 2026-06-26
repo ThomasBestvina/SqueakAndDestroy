@@ -44,7 +44,7 @@ func body_collision(body: Node):
 
 func _physics_process(_delta: float) -> void:
 	var tilt = rotation.distance_to(initial_rotation)
-	if tilt > deg_to_rad(30) and not already_scored and spawn_time > 3:
+	if tilt > deg_to_rad(45) and not already_scored and spawn_time > 3:
 		score()
 
 func score():
