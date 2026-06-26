@@ -18,7 +18,8 @@ func _process(_delta: float) -> void:
 		get_tree().paused = false
 	
 	$Gui/Crosshair.visible = GlobalState.state["hook"] > 0
-
+	
+	
 
 func _on_resume_pressed() -> void:
 	get_tree().paused = false
