@@ -38,7 +38,9 @@ func _process(_delta: float) -> void:
 	%RocketBoost/RocketUp.text = "Upgrade Jetpack Power" if GlobalState.state["boost"] > 0 else "Unlock Jetpack"
 	
 	%Speed/SpeedUp.disabled = GlobalState.state["speed"] >= get_max(UpgradeType.SPEED) - 0.1
-	if %Speed/SpeedUp.disabled: %Speed/RichTextLabel.text = "MAX"
+	if %Speed/SpeedUp.disabled: 
+		%Speed/RichTextLabel.text = "MAX"
+	
 
 	%Time/TimeUp.disabled = GlobalState.state["timer"] >= get_max(UpgradeType.TIME) - 0.1
 	if %Time/TimeUp.disabled: %Time/RichTextLabel.text = "MAX"
@@ -65,23 +67,41 @@ func _process(_delta: float) -> void:
 	%RocketFuel.visible = GlobalState.state["boost"] > 0
 	%RocketFuel/FuelUp.disabled = GlobalState.state["boost_fuel"] >= get_max(UpgradeType.FUEL) - 0.1
 	if %RocketFuel/FuelUp.disabled: %RocketFuel/RichTextLabel.text = "MAX"
+	
+	%Speed/RichTextLabel2.text = str(GlobalState.state["speed"])+"+"+str(upgrade_number(UpgradeType.SPEED)) if !%Speed/SpeedUp.disabled else str(GlobalState.state["speed"])
+	
+	%Time/RichTextLabel2.text = str(GlobalState.state["timer"])+"+" + str(upgrade_number(UpgradeType.TIME))+" seconds" if !%Time/TimeUp.disabled else str(GlobalState.state["timer"]) + " seconds"
+	
+	%Jump/RichTextLabel2.text = str(GlobalState.state["jump"])+"+" + str(upgrade_number(UpgradeType.JUMP)) if !%Jump/JumpUp.disabled else str(GlobalState.state["jump"])
+
+	%Weight/RichTextLabel2.text = str(GlobalState.state["weight"]+0.6)+"+" + str(upgrade_number(UpgradeType.WEIGHT)) + " kg" if !%Weight/WeightUp.disabled else str(GlobalState.state["weight"]) + " kg"
+
+	%Multiplier/RichTextLabel2.text = str(GlobalState.state["multiplier"])+"+" + str(upgrade_number(UpgradeType.MULTIPLIER)) if !%Multiplier/MultiplierUp.disabled else str(GlobalState.state["multiplier"])
+
+	%GrapplingHook/RichTextLabel2.text = str(GlobalState.state["hook"])+"+" + str(upgrade_number(UpgradeType.GRAPPLE)) if !%GrapplingHook/GrappleUp.disabled else str(GlobalState.state["hook"])
+
+	%GrapplingRange/RichTextLabel2.text = str(GlobalState.state["hook_range"])+"+" + str(upgrade_number(UpgradeType.RANGE)) + "meters" if !%GrapplingRange/RangeUp.disabled else str(GlobalState.state["hook_range"]) + " meters"
+
+	%RocketBoost/RichTextLabel2.text = str(GlobalState.state["boost"])+"+" + str(upgrade_number(UpgradeType.BOOST)) if !%RocketBoost/RocketUp.disabled else str(GlobalState.state["boost"])
+
+	%RocketFuel/RichTextLabel2.text = str(GlobalState.state["boost_fuel"])+"+" + str(upgrade_number(UpgradeType.FUEL)) + "seconds" if !%RocketFuel/FuelUp.disabled else str(GlobalState.state["boost_fuel"]) + " seconds"
 
 func cost_calculator(type: UpgradeType) -> int:
 	match type:
 		UpgradeType.SPEED:
-			return int(pow(GlobalState.state["speed"],2.2) * 15) + 10
+			return int(pow(GlobalState.state["speed"],1.7) * 13) + 7
 		UpgradeType.TIME:
-			return int(pow(GlobalState.state["timer"]-14, 1.3))
+			return int(pow(GlobalState.state["timer"]-14, 1.1))
 		UpgradeType.JUMP:
-			return int(pow(GlobalState.state["jump"] + 1, 2.5) * 8)
+			return int(pow(GlobalState.state["jump"] + 1, 1.5) * 8)
 		UpgradeType.WEIGHT:
-			return int(pow(GlobalState.state["weight"] * 3 + 1, 2.8) * 5)
+			return int(pow(GlobalState.state["weight"] * 3 + 1, 2.2) * 5)
 		UpgradeType.MULTIPLIER:
 			return int(pow(3.5, GlobalState.state["multiplier"]*1.2) * 7.5)
 		UpgradeType.GRAPPLE:
-			return int(pow(GlobalState.state["hook"], 2.2) * 5 + 50)
+			return int(pow(GlobalState.state["hook"], 1.6) * 4 + 40)
 		UpgradeType.BOOST:
-			return int(pow(2.3, GlobalState.state["boost"]) * 10 + 50)
+			return int(pow(1.4, GlobalState.state["boost"]/1.4) * 10 + 40)
 		UpgradeType.RANGE:
 			return int(pow(GlobalState.state["hook_range"], 1.8) + 12)
 		UpgradeType.FUEL:
@@ -112,6 +132,7 @@ func get_max(type: UpgradeType) -> float:
 			return 4
 		_:
 			return 0
+
 func upgrade_number(type: UpgradeType): # no return promise, as we may return a float or int
 	match type:
 		UpgradeType.SPEED:

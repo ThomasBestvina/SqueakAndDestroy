@@ -33,3 +33,8 @@ func load_game():
 	var temp_state = StoatStash.load_data("hamsterballawesomesave.dat")
 	if(temp_state != {}):
 		state = temp_state
+
+
+func meta_game_complete(gameId: String) -> void:
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval("localStorage.setItem(\"%s\", new Date().toJson());" % gameId)

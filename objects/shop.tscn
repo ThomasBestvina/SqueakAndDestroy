@@ -18,6 +18,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ul6j")
 
+[node name="Panel" type="Panel" parent="." unique_id=253513195]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -8.200001
+anchor_top = -4.0
+anchor_right = 8.908065
+anchor_bottom = 5.0531173
+offset_right = -644.32263
+offset_bottom = -322.1247
+scale = Vector2(17.108067, 9.053118)
+theme = ExtResource("2_ypd62")
+metadata/_edit_use_anchors_ = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1724639772]
 layout_mode = 1
 anchors_preset = 8
@@ -57,6 +70,12 @@ layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Upgrade Speed"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/Speed" unique_id=2119196289]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+
 [node name="Time" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1198413831]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -74,6 +93,12 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Upgrade Time"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/Time" unique_id=825459192]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
 
 [node name="Jump" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1870005659]
 unique_name_in_owner = true
@@ -93,6 +118,12 @@ layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Unlock Jump"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/Jump" unique_id=2010369768]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+
 [node name="Weight" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=2145435628]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -110,6 +141,12 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Increase Weight"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/Weight" unique_id=1625063146]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
 
 [node name="Multiplier" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1237161505]
 unique_name_in_owner = true
@@ -129,6 +166,12 @@ layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Increase Multiplier"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/Multiplier" unique_id=2071322784]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+
 [node name="GrapplingHook" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=909777704]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -147,6 +190,12 @@ layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Unlock Grappling Hook"
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/GrapplingHook" unique_id=1325953894]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+
 [node name="GrapplingRange" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=787295009]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -164,6 +213,12 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Upgrade Grapple Range"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/GrapplingRange" unique_id=1716058940]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
 
 [node name="RocketBoost" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=1350147716]
 unique_name_in_owner = true
@@ -184,6 +239,12 @@ theme = ExtResource("2_ypd62")
 text = "Unlock Jetpack
 "
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/RocketBoost" unique_id=226696413]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+
 [node name="RocketFuel" type="VBoxContainer" parent="VBoxContainer/GridContainer" unique_id=66677136]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
@@ -202,6 +263,12 @@ layout_mode = 2
 theme = ExtResource("2_ypd62")
 text = "Upgrade Jetpack Fuel
 "
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/GridContainer/RocketFuel" unique_id=1595823801]
+custom_minimum_size = Vector2(0, 21.67)
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=230734726]
 layout_mode = 2
