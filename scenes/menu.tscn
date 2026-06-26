@@ -1677,7 +1677,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7afnx")
 
-[node name="WinScreen" type="Control" unique_id=235483917]
+[node name="Menu" type="Control" unique_id=235483917]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1742,6 +1742,7 @@ contact_monitor = true
 max_contacts_reported = 10
 angular_damp = 0.2
 script = ExtResource("4_mxgkd")
+active = false
 cam = NodePath("piv/SpringArm3D/CamPos")
 pitch_max = 45.0
 

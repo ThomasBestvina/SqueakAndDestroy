@@ -1,5 +1,8 @@
 class_name Hamsterbody3D extends RigidBody3D
 
+
+@export var active = true
+
 @export_category("Camera")
 
 @export var cam_speed: float = 0.003
@@ -88,7 +91,7 @@ func init() -> void:
 	boost_fuel = GlobalState.state["boost_fuel"]
 
 func _input(event: InputEvent) -> void:
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	if(Input.mouse_mode != Input.MOUSE_MODE_CAPTURED): return
 	if event is InputEventMouseMotion:
 		yaw -= event.relative.x * cam_speed
@@ -97,7 +100,7 @@ func _input(event: InputEvent) -> void:
 	
 
 func _process(delta: float) -> void:
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	$piv.rotation.y = yaw
 	$piv2.rotation.y = yaw
 	$piv/SpringArm3D.rotation.x = pitch
@@ -144,7 +147,7 @@ func _process(delta: float) -> void:
 		current_roll_sound.position = global_position
 
 func shoot_hook():
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	if(GlobalState.state["hook"] == 0 or get_parent().end or !can_use_hook): return
 	var space_state = get_world_3d().direct_space_state
 	var cam_node = $piv/SpringArm3D/CamPos
@@ -167,7 +170,7 @@ func shoot_hook():
 	StoatStash.play_sfx_3d(grapple_hook_throw_sound, global_position)
 
 func update_rope_graphic(delta: float):
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	hook_mesh.visible = (hooked or hook_traveling or hook_retracting) and can_use_hook
 	
 	if hook_traveling:
@@ -211,7 +214,7 @@ func update_rope_graphic(delta: float):
 	$hamster.top_level = !is_stunned
 
 func _physics_process(delta: float) -> void:
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	var forward = Vector3(-sin(yaw), 0, -cos(yaw))
 	var right = Vector3(cos(yaw), 0, -sin(yaw))
 	
@@ -298,7 +301,7 @@ func _physics_process(delta: float) -> void:
 		$jetpack/GPUParticles3D2.emitting = false
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	var i := 0
 	on_floor = false
 	while i < state.get_contact_count():
@@ -308,5 +311,5 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		i += 1
 
 func _on_timer_timeout() -> void:
-	if(get_parent().name == "WinScreen"): return
+	if !active: return
 	can_use_hook = true
