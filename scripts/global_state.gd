@@ -1,5 +1,10 @@
 extends Node
 
+
+var music = preload("res://assets/music/old medieval.ogg")
+
+var num = 0
+
 var state: Dictionary = {
 	"currency": 0,
 	"timer": 15,
@@ -36,6 +41,9 @@ func load_game():
 	if(temp_state != {}):
 		state = temp_state
 
+func _process(_delta: float) -> void:
+	if(!StoatStash.is_music_playing()):
+		StoatStash.play_music(music, 1.0, false)
 
 func meta_game_complete(gameId: String) -> void:
 	if OS.has_feature("web"):

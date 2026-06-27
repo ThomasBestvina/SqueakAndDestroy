@@ -2,16 +2,11 @@ extends Control
 
 @onready var world = preload("res://scenes/world.scn")
 
-var music = preload("res://assets/music/old medieval.ogg")
 
 var sound = preload("res://assets/Sound/uiselect.wav")
 
 func _ready() -> void:
 	StoatStash.mute_sfx(false)
-	if(!StoatStash.is_music_playing()):
-		StoatStash.play_music(music, 0.3)
-		StoatStash.set_music_volume(0.3)
-		$Settings.init()
 	if(OS.get_name() == "Web"):
 		$VBoxContainer/Quit.hide()
 

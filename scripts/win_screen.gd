@@ -2,6 +2,8 @@ extends Node3D
 
 var roll_credits: bool = false
 
+var song = load("res://assets/music/Ode to Chris Morris.ogg")
+
 func _ready() -> void:
 	$Path3D/WinScreen/Hamsterball.freeze = true
 	$Path3D/WinScreen.progress_ratio = 0
@@ -9,6 +11,7 @@ func _ready() -> void:
 	StoatStash.mute_sfx(true)
 	StoatStash.set_sfx_volume(0.0)
 	GlobalState.meta_game_complete("thomaszach/squeakanddestroy")
+	StoatStash.crossfade_music(song, 1.0)
 
 func _process(delta: float) -> void:
 	$Path3D/WinScreen.progress_ratio = lerp($Path3D/WinScreen.progress_ratio, 0.8, 0.01)
