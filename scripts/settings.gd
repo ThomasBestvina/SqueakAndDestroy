@@ -6,10 +6,12 @@ extends Control
 func _ready() -> void:
 	$VBoxContainer/SfxSlider.value = StoatStash._sfx_volume
 	$VBoxContainer/MusicSlider.value = StoatStash._music_volume
+	$VBoxContainer/MusicSlider2.value = (GlobalState.sensitivity - 0.001) / 0.008
 
 func init() -> void: # optional call for menu
 	$VBoxContainer/SfxSlider.value = StoatStash._sfx_volume
 	$VBoxContainer/MusicSlider.value = StoatStash._music_volume
+	$VBoxContainer/MusicSlider2.value = (GlobalState.sensitivity - 0.001) / 0.008
 
 func _process(_delta: float) -> void:
 	StoatStash.set_sfx_volume($VBoxContainer/SfxSlider.value)
@@ -23,4 +25,8 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 func _on_music_slider_value_changed(value: float) -> void:
 	StoatStash.set_music_volume(value)
 	StoatStash.play_sfx(uiselect, 0.7)
-	
+
+
+func _on_music_slider_2_value_changed(value: float) -> void:
+	GlobalState.sensitivity = value * 0.008 + 0.001
+	print(GlobalState.sensitivity)

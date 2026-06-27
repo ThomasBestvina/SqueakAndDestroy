@@ -5,7 +5,6 @@ class_name Hamsterbody3D extends RigidBody3D
 
 @export_category("Camera")
 
-@export var cam_speed: float = 0.003
 @export var cam: Node3D
 
 
@@ -94,8 +93,8 @@ func _input(event: InputEvent) -> void:
 	if !active: return
 	if(Input.mouse_mode != Input.MOUSE_MODE_CAPTURED): return
 	if event is InputEventMouseMotion:
-		yaw -= event.relative.x * cam_speed
-		pitch -= event.relative.y * cam_speed
+		yaw -= event.relative.x * GlobalState.sensitivity
+		pitch -= event.relative.y * GlobalState.sensitivity
 		pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 	
 
@@ -220,7 +219,7 @@ func _physics_process(delta: float) -> void:
 	
 	var input = Vector2(Input.get_axis("forward", "backward"), Input.get_axis("left", "right"))
 	if(!on_floor):
-		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass * 0.03)
+		apply_central_force((right * input.y + -forward * input.x) * GlobalState.state["speed"] * air_control * mass * 0.2)
 		apply_torque((right * input.x + forward * input.y) * GlobalState.state["speed"] * mass * 0.0001)
 	
 	if(on_floor):
@@ -281,7 +280,7 @@ func _physics_process(delta: float) -> void:
 			return
 		
 		if distance > 0.1:
-			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 3 * mass)
+			apply_central_force(to_hook.normalized() * GlobalState.state["hook"] * 5.5 * mass)
 
 	#jetpack
 	if GlobalState.state["boost"] > 0 && Input.is_action_pressed("boost") && boost_fuel > 0:
