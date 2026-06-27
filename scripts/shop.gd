@@ -99,7 +99,7 @@ func cost_calculator(type: UpgradeType) -> int:
 		UpgradeType.MULTIPLIER:
 			return int(pow(3.5, GlobalState.state["multiplier"]*1.2) * 7.5)
 		UpgradeType.GRAPPLE:
-			return int(pow(GlobalState.state["hook"], 1.6) * 4 + 40)
+			return int(pow(GlobalState.state["hook"], 1.6) * 4 + 25)
 		UpgradeType.BOOST:
 			return int(pow(1.4, GlobalState.state["boost"]/1.4) * 10 + 40)
 		UpgradeType.RANGE:

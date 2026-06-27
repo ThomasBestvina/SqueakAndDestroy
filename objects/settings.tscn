@@ -52,5 +52,20 @@ max_value = 1.0
 step = 0.1
 tick_count = 10
 
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer" unique_id=96323233]
+custom_minimum_size = Vector2(73.395, 22.43)
+layout_mode = 2
+theme = ExtResource("2_icbth")
+text = "Sensitivity"
+horizontal_alignment = 1
+
+[node name="MusicSlider2" type="HSlider" parent="VBoxContainer" unique_id=1231892034]
+layout_mode = 2
+theme = ExtResource("2_icbth")
+max_value = 1.0
+step = 0.1
+tick_count = 10
+
 [connection signal="value_changed" from="VBoxContainer/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/MusicSlider2" to="." method="_on_music_slider_2_value_changed"]

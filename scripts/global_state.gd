@@ -26,6 +26,8 @@ var default_state: Dictionary = {
 	"boost_fuel": 1
 }
 
+var sensitivity: float = 0.003
+
 func save_game():
 	StoatStash.save_data(state, "hamsterballawesomesave.dat")
 

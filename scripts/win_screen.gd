@@ -8,7 +8,7 @@ func _ready() -> void:
 	$Path3D/WinScreen/Hamsterball/HookMesh.hide()
 	StoatStash.mute_sfx(true)
 	StoatStash.set_sfx_volume(0.0)
-	GlobalState.meta_game_complete("ThomasZach/SqueakAndDestroy")
+	GlobalState.meta_game_complete("thomaszach/squeakanddestroy")
 
 func _process(delta: float) -> void:
 	$Path3D/WinScreen.progress_ratio = lerp($Path3D/WinScreen.progress_ratio, 0.8, 0.01)

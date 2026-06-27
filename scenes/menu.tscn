@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bbvbfgsytow76"]
 
 [ext_resource type="Script" uid="uid://cvtd3jih7bgrv" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="Texture2D" uid="uid://qs7t7tgc2j6n" path="res://assets/2D/meta/coverArt.png" id="2_3dmrc"]
 [ext_resource type="Theme" uid="uid://b17mkexbpm2kn" path="res://assets/Style/theme.tres" id="2_vjb58"]
 [ext_resource type="PackedScene" uid="uid://7lwih7jxid7b" path="res://objects/settings.tscn" id="3_con2f"]
 [ext_resource type="Script" uid="uid://ba70dd62hghtg" path="res://scripts/hamsterballcontroller.gd" id="4_mxgkd"]
@@ -1686,14 +1687,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqeox")
 
+[node name="CoverArt" type="Sprite2D" parent="." unique_id=646957275]
+modulate = Color(0.7919991, 0.79199916, 0.7919991, 1)
+position = Vector2(540, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_3dmrc")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2144332141]
 custom_minimum_size = Vector2(0, 105.71)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
 offset_top = -230.0
-offset_right = 208.0
+offset_right = 213.0
 grow_vertical = 0
 theme = SubResource("Theme_jvqdq")
 

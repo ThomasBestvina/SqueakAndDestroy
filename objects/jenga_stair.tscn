@@ -1,0 +1,55 @@
+[gd_scene format=4 uid="uid://dl5kmjemiwlue"]
+
+[ext_resource type="Texture2D" uid="uid://cbjt4vr8ean3h" path="res://assets/3D/map/jengaBlock_woodTexture3.png" id="1_84s2l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5wopx"]
+resource_name = "Material"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_84s2l")
+texture_filter = 2
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rhcxw"]
+_surfaces = [{
+"aabb": AABB(-0.035, -0.0225, -0.1425, 0.07, 0.045, 0.285),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEAAwAFAAIABQAAAAIABgAEAAAABQAGAAAABwABAAQABwADAAEABgAHAAQABQADAAcABQAHAAYA"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAAAAP////8AAAAA//8AAAAAAAAAAP//AAD///////8AAAAAAAAAAAAA//8AAAAAAAD//wAA//8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0ciel"]
+resource_name = "jengaBlock_Cube"
+_surfaces = [{
+"aabb": AABB(-0.035, -0.0225, -0.1425, 0.07, 0.045, 0.285),
+"attribute_data": PackedByteArray("8NPRtP//O4///9G08NM7j+GnO4/w06Rp8NM7j+GnpGnhp///8NNo2vDT///hp2ja03vRtOGnO4/hp9G003s7j+Gn0bTw0zuP8NPRtOGnO4/hp2ja8NPRtPDTaNrhp9G0"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_5wopx"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(2.067408, 2.4232106, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA//8AAP///////wAA//8AAP///////////////wAA////vwAA//////+//////////78AAAAA////vwAAAAD//1TVAAD//wAAVNUAAP////9U1QAAAAAAAFTVAAAAAAAA/7///wAA////v///AAAAAP+/AAAAAP///7///wAAAABU1f///////1TV/////wAAVNX//wAA//9U1QAAAAAAAP///////wAA//8AAP//AAD/////AAAAAP///3//v/9//7//f/+//3//v/////////////////////9U1VTVVNVU1VTVVNVU1VTVAAD/fwAA/38AAP9/AAD/f6oqqiqqKqoqqiqqKqoqqir/v/+//7//v/+//7//v/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_rhcxw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q0csh"]
+size = Vector3(0.07, 0.045, 0.285)
+
+[node name="Node3D" type="StaticBody3D" unique_id=1190242597]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+
+[node name="jengaBlock" type="MeshInstance3D" parent="." unique_id=899515031]
+mesh = SubResource("ArrayMesh_0ciel")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1544260542]
+shape = SubResource("BoxShape3D_q0csh")

@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	spawn_time += delta
-	if(spawn_time < 5):
+	if(spawn_time < 5 and needs_timer):
 		initial_rotation = rotation
 
 func body_collision(body: Node):
@@ -44,12 +44,11 @@ func body_collision(body: Node):
 		var impulse_approx = relative_velocity * reduced_mass
 		if(cur_obj_slam == null):
 			cur_obj_slam = StoatStash.play_sfx_3d(objective_slam, global_position, 0.025)
-		if impulse_approx >= min_force and spawn_time >= 3 and force_hit_points_award:
-			score()
+
 
 func _physics_process(_delta: float) -> void:
 	var tilt = rotation.distance_to(initial_rotation)
-	if tilt > deg_to_rad(45) and not already_scored and (spawn_time > 5 or can_score or !needs_timer):
+	if tilt > deg_to_rad(30) and not already_scored and (spawn_time > 5 or can_score or !needs_timer):
 		score()
 
 func score():
