@@ -3,15 +3,16 @@ extends Node3D
 var roll_credits: bool = false
 
 var song = load("res://assets/music/Ode to Chris Morris.ogg")
+var end_song = load("res://assets/music/old medieval.ogg")
 
 func _ready() -> void:
 	$Path3D/WinScreen/Hamsterball.freeze = true
 	$Path3D/WinScreen.progress_ratio = 0
 	$Path3D/WinScreen/Hamsterball/HookMesh.hide()
 	StoatStash.mute_sfx(true)
-	StoatStash.set_sfx_volume(0.0)
 	GlobalState.meta_game_complete("thomaszach/squeakanddestroy")
 	StoatStash.crossfade_music(song, 1.0)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _process(delta: float) -> void:
 	$Path3D/WinScreen.progress_ratio = lerp($Path3D/WinScreen.progress_ratio, 0.8, 0.01)
@@ -26,12 +27,15 @@ func _process(delta: float) -> void:
 	
 	if $RichTextLabel.position.y <= 30:
 		$RichTextLabel2.position.y = 20000
+
 func _on_timer_timeout() -> void:
 	roll_credits = true
 
 
 func _on_button_pressed() -> void:
 	StoatStash.change_scene_with_simple_transition("res://scenes/menu.tscn")
+	StoatStash.mute_sfx(false)
+	StoatStash.crossfade_music(end_song)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if(event.is_action("jump") && $RichTextLabel.position.y >= 30):

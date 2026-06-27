@@ -242,6 +242,8 @@ func _physics_process(delta: float) -> void:
 	if on_floor and GlobalState.state["jump"] > 0.5 and StoatStash.consume_buffered_input("jump", 0.07):
 		StoatStash.play_sfx_3d(jump_sound, global_position)
 		apply_impulse(Vector3.UP * tap_jump * 1.8 * mass)
+		if(input.length() > 0.1):
+			apply_central_impulse((right * input.y + -forward * input.x) * mass * 0.7 * clamp(GlobalState.state["jump"], 0,2))
 		is_jumping = true
 		jump_hold_time = 0.0
 
@@ -252,23 +254,6 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_released("jump") or jump_hold_time >= MAX_HOLD_TIME:
 		is_jumping = false
-	
-	# stun
-	if not is_stunned and angular_velocity.length() > (log(GlobalState.state["speed"]*10+2)/log(10)) * 20:
-		is_stunned = true
-		stun_timer = STUN_DURATION
-		animation_player.play("3LosingBalance")
-	if is_stunned:
-		stun_timer -= delta
-		if(!animation_player.is_playing()):
-			animation_player.play("4LostBalance")
-		if(stun_timer <= 0.0):
-			is_stunned = false
-	if(stun_timer <= 0.5 and is_stunned):
-		animation_player.play("5GainBalance")
-		$hamster.global_position = lerp($hamster.global_position,global_position + Vector3(0, -0.04, -0.001), delta*2)
-		$hamster.rotation.x = lerp_angle($hamster.rotation.x, 0.0, delta*4)
-		$hamster.rotation.z = lerp_angle($hamster.rotation.z, 0.0, delta*4)
 	
 	# grappling hook
 	if hooked && hook_hit:
